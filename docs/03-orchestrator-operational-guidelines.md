@@ -34,7 +34,7 @@ Each policy notes where it is enforced:
 | 2 | Qualifying volume is settlement through admitted Filecoin Pay contracts, in admitted stablecoins or FIL converted off-chain via the reference indexer using public fee-auction prints (`MIN_LOT`, `PRICE_BAND`), attributable to the orchestrator's registered (payer, operator) pairs. Nothing else counts. | Contract |
 | 3 | A (payer, operator) pair binds to exactly one orchestrator. Registering a pair already bound elsewhere reverts. Clients are free to work with multiple orchestrators across different operator relationships; the pair, not the client, is the unit of attribution. | FIP |
 | 4 | Volume counts only for pairs registered before the settlement occurs. Retroactive attribution is not accepted. | Repository |
-| 5 | Each quarter, orchestrators post FPV within `POST_PERIOD`. A value neither posted nor corrected during `VERIFICATION_WINDOW` binds at zero. Bound values are final; a successful appeal affects later quarters only. | FIP and contract |
+| 5 | Each quarter, orchestrators post FPV within `POST_PERIOD` when it is above zero. `PostVolume` rejects zero (a zero total is equivalent to not posting); zero is not posted and binds at zero. A value neither posted nor corrected during `VERIFICATION_WINDOW` likewise binds at zero. Bound values are final; a successful appeal affects later quarters only. | FIP and contract |
 | 6 | Within 7 days of admission, each orchestrator publishes its declaration file in this repository: a short description of its service, contact information, and its registered pairs, including any pointer to service-contract metadata. | Repository |
 | 7 | An orchestrator with no settled volume for **[TBD timeline]** consecutive quarters enters registry review and may be removed. Removal on inactivity is registry hygiene: an idle registration adds attack surface without adding measurement value. | Repository |
 | 8 | No registry address participates in either governance tier, as a Safe or as a key holder within one. | FIP |
@@ -133,8 +133,8 @@ Rewards land in your payout wallet each epoch; deploying them against your manda
 
 > **Cadence:** quarterly (`POST_PERIOD`, then `VERIFICATION_WINDOW`) · **On-chain call:** `PostVolume`
 
-1. Within `POST_PERIOD`, post your figure via `PostVolume` as a single USD-denominated total, with FIL volume converted off-chain by the indexer per the fee-auction pricing rule.
-2. During `VERIFICATION_WINDOW`, recompute your own FPV from public settlement events using the reference indexer and reconcile it against what you posted; flag any discrepancy proactively.
+1. Within `POST_PERIOD`, if your FPV is above zero, post it via `PostVolume` as a single USD-denominated total, with FIL volume converted off-chain by the indexer per the fee-auction pricing rule. If the quarter’s FPV is zero, do **not** call `PostVolume` (the contract rejects zero); the value binds at zero the same as a non-post.
+2. During `VERIFICATION_WINDOW`, recompute your own FPV from public settlement events using the reference indexer and reconcile it against what you posted (or against zero if you did not post); flag any discrepancy proactively.
 3. Keep your declaration file (pairs, contact, measurement rules) current.
 4. Remember the failure mode: a value neither posted nor corrected binds at zero (a conservative under-count); bound values are final, and a successful appeal affects later quarters only.
 
@@ -242,7 +242,7 @@ Complete before counting FPV from a new payer/operator relationship.
 | ---- | ----------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | [ ]  | Confirm `POST_PERIOD` is open             | Post period               | [Timing Parameters](https://github.com/filecoin-project/Solstice-Governance/blob/main/docs/02-solstice-program-governance.md#24-parameters) |
 | [ ]  | Confirm final FPV amount                  | Before posting            | [Guidelines](https://github.com/filecoin-project/Solstice-Governance/blob/main/docs/03-orchestrator-operational-guidelines.md)              |
-| [ ]  | Submit FPV using `PostVolume`             | Post period               | [PostVolume Requirements](https://github.com/filecoin-project/Solstice-Governance/blob/main/docs/03-orchestrator-operational-guidelines.md) |
+| [ ]  | Submit FPV using `PostVolume` (skip if FPV is zero — contract rejects zero; binds at zero) | Post period               | [PostVolume Requirements](https://github.com/filecoin-project/Solstice-Governance/blob/main/docs/03-orchestrator-operational-guidelines.md) |
 | [ ]  | Confirm transaction succeeded             | Immediately after posting | [Guidelines](https://github.com/filecoin-project/Solstice-Governance/blob/main/docs/03-orchestrator-operational-guidelines.md)              |
 | [ ]  | Confirm posted FPV matches calculated FPV | Immediately after posting | [Guidelines](https://github.com/filecoin-project/Solstice-Governance/blob/main/docs/03-orchestrator-operational-guidelines.md)              |
 | [ ]  | Save posting transaction reference        | Immediately after posting | —                                                                                                                                           |

@@ -1,5 +1,12 @@
 # 6. Program Change Log
 
+## 2026-09-24 — Second-Safe dry-run and zero-volume quarter
+
+- Standard SWA (§2.2) and SRA (§2.3) flows: the second Safe signs only after a successful dry-run of its own approval; note the result on the task-register issue; on revert, veto and resubmit (`UnanimousGovernance`; SRA header).
+- Policy 5 / reporting: post FPV only when above zero; zero is not posted and binds at zero. Template §2.5 and runbook §4.1–4.2 accept `no message (zero quarter)` with indexer evidence.
+
+
+
 ## 2026-09-23 — Canonical calldata and payment-channel wallet
 
 - Task register: action issue carries the calldata both Safes copy; address lists sorted ascending before encoding (`taskId` = `keccak256(msg.data)`).

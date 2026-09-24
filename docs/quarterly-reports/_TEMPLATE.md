@@ -70,13 +70,13 @@ Printed here because `MIN_LOT(Q)` is derived off-chain and is stored neither on-
 | Admitted-stablecoin whitelist (in force for Q) | *(from indexer)* |
 | Admitted Filecoin Pay contract addresses (as of Q) | *(from indexer)* |
 
-### 2.5 FPV total *(from indexer; must match the bound value (PostVolume or VolumeCorrected) on-chain)*
+### 2.5 FPV total *(from indexer; must match the bound value on-chain — PostVolume, VolumeCorrected, or zero with no PostVolume)*
 
 | Field | Value |
 | :-- | :-- |
 | `FPV_i(Q)` total (atto-USD; stablecoin component plus FIL component) | *(from indexer)* |
 | `FPV_i(Q)` total (USD, human-readable) | *(from indexer)* |
-| `PostVolume` message reference (tx hash / link) this total must match the bound value (PostVolume or VolumeCorrected) | *(from indexer)* |
+| `PostVolume` / `VolumeCorrected` message reference (tx hash / link), **or** `no message (zero quarter)` with the indexer run as evidence | *(from indexer; or N/A — zero quarter)* |
 
 ### 2.6 Booked revenue by customer segment
 

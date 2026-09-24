@@ -89,7 +89,7 @@ SWA Governance approves nothing routine: the w1 ramp and the volume gate are mec
 >
 > 1. Draft the exact write and carry a FIP through to 'Accepted' (including Last Call). No write is submitted without an accepted FIP.
 > 2. Pre-submission check: verify the schedule envelope (Σw ≤ 1 across the whole segment) and that the write matches the accepted FIP.
-> 3. Both SWA Safes approve `ProposeWrite(write)`.
+> 3. Both SWA Safes approve `ProposeWrite(write)`. The first Safe’s transaction only records its approval (`UnanimousGovernance`); the action body runs in the second Safe’s transaction. The second Safe signs only if a dry-run simulation of **its own** approval succeeds, and notes the simulation result on the task-register issue. On a simulated revert, either Safe `veto`s and the action is resubmitted (a failed second approval leaves the task half-approved and burns the signature round).
 > 4. The SWA relays to f02; f02 queues it with an `effective_epoch` and holds it for `SWA_TIMELOCK` (7 days).
 > 5. Objection window: the queued write is public; monitor the off-chain objection process. Either SWA Safe may `cancelPending` / `cancelPendingWeight` / `veto(taskId)` (as applies) on a mismatch, a missing FIP, or a sustained objection; absent a cancellation it binds at `effective_epoch`.
 > 6. Record the outcome in this repository (and in the [Program Change Log](06-changelog.md).
@@ -220,7 +220,7 @@ Registry changes need both Registry Safes but need no per-change FIP (the one ex
 > **Standard registry-change flow** (referenced by 2.3.1–2.3.5, 2.3.9–2.3.10):
 >
 > 1. Trigger and diligence (application, dispute outcome, audit finding, rotation request, or list update).
-> 2. Both Registry Safes approve the relevant call.
+> 2. Both Registry Safes approve the relevant call. The first Safe’s transaction only records its approval (`UnanimousGovernance`); the action body runs in the second Safe’s transaction (SRA header: the second Safe MUST dry-run the calldata before approving). The second Safe signs only if a dry-run simulation of **its own** approval succeeds, and notes the simulation result on the task-register issue. On a simulated revert (wrong wallet, closed window, pending shares, etc.), either Safe `veto`s and the action is resubmitted.
 > 3. The change binds when the second SRA Safe approves (no pending queue, no cancellation path). Record it in the Change Log.
 > 4. Either Registry Safe have visibility on changes.
 > 5. Record the outcome in the issue/repository, and update the [Orchestrator Registry](#2312-orchestrator-registry-admitted-orchestrators) where the change affects an Orchestrator's status.
@@ -460,7 +460,7 @@ The threat model rests on the two-Safes rule: no single Safe can make a change b
 ### 2.5.2 A whole Safe compromised (internal threshold reached by an attacker)
 
 1. Nothing binds from one Safe alone. A hold (where one exists) starts only after both Safes approve. One Safe can only submit a task; the `Submitted` event carries the `taskId` (a hash), not the full content. The other Safe’s remedy is `veto(taskId)` on that half-approved or held task. Repeated resubmission is publicly visible; the attacker cannot bind a change silently. On the SWA side, a malicious discretionary write also lacks its required published FIP, making the objection case unambiguous.
-2. **Task register (off-chain).** Pending tasks never expire on-chain (`UnanimousGovernance`), and `Submitted` names only the `taskId` hash. Before the first on-chain approval of any governance action, open an issue in this repository that records the exact calldata and the expected `taskId` (= `keccak256(msg.data)`). That issue is the human-readable register entry the hash alone cannot provide. **Canonical calldata:** both Safes copy the calldata from that issue verbatim. Address lists in the payload (e.g. `SetAdmittedLists`) are sorted ascending by address before encoding — the same list in a different order is a different `msg.data` and a different task that never reaches unanimity.
+2. **Task register (off-chain).** Pending tasks never expire on-chain (`UnanimousGovernance`), and `Submitted` names only the `taskId` hash. Before the first on-chain approval of any governance action, open an issue in this repository that records the exact calldata and the expected `taskId` (= `keccak256(msg.data)`). That issue is the human-readable register entry the hash alone cannot provide. **Canonical calldata:** both Safes copy the calldata from that issue verbatim. Address lists in the payload (e.g. `SetAdmittedLists`) are sorted ascending by address before encoding — the same list in a different order is a different `msg.data` and a different task that never reaches unanimity. The second Safe also records its pre-approval dry-run result on that issue (see the standard flows in §2.2 and §2.3).
 3. The tier is treated as frozen (halted/suspended), and frozen consequences are bounded: registry frozen means payments and `SetShares` continue; SWA frozen means discretionary changes stop while the ramp and the gate continue through the permissionless crank.
 4. Exit: replace the compromised Safe address. This requires both Safes, so if the compromised Safe obstructs, the FIP backstop applies (2.5.3).
 
