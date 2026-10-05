@@ -443,9 +443,9 @@ Applies to either tier; the mechanics are the same on the SRA and the SWA.
 **Cooperative case** (requires both Safes of that contract · hold: none · not cancellable):
 
 1. Veto every open task on that contract first. `removeOwner` does not clear pending approvals; a freed owner bit can recycle to a future owner still carrying old approvals (`Owners.sol`). Every unanimous action shares one pending-task mapping, so this covers code upgrades, registry or gate-parameter changes and owner replacements alike; the task register above lists them.
-2. Both Safes approve the replacement (`ReplaceOwner`), with the action's calldata and `taskId` recorded in the issue before the first approval (see task register above). It binds at once when the second Safe approves. The tier-internal timelock covers code upgrades and parameter changes only, not cooperative replacement.
-3. Announce here with a post-mortem.
-4. Engineering follow-up, in the solstice repo's [owner change FAQ](https://github.com/filecoin-project/solstice/blob/main/docs/UPGRADE.md#how-do-i-handle-an-owner-change): register the operations key as a proposer on the new Safe, update the owner in `deployments.json` with a version bump, and confirm with `check-setup` and `verify`. Until that lands, the upgrade tooling refuses to propose.
+2. Both Safes approve the replacement (`ReplaceOwner`), with the action's calldata and `taskId` recorded in the issue before the first approval (see task register above). It binds at once when the second Safe approves: the contracts' on-chain hold applies only to code upgrades and SWA gate-parameter changes, so cooperative replacement, like every other action, is not held.
+3. Record the new Safe in [2.4.1 Safe Addresses](#241-safe-addresses) and the [Program Change Log](06-changelog.md), with the reason for the replacement; a compromise also gets a post-mortem.
+4. Do the engineering items in the [owner change FAQ](https://github.com/filecoin-project/solstice/blob/main/docs/UPGRADE.md#how-do-i-handle-an-owner-change).
 
 **Hostile or deadlocked case** (a Safe blocks its own replacement), always under a published FIP: the exit is a redeployed contract behind a new proxy, and the live proxy addresses are hardwired in Lotus and the other Filecoin implementations, so either contract needs a coordinated network upgrade to re-point them at the new proxy. For the SRA, registry state is reconstructible from public data; for the SWA, the network upgrade also migrates the writer address in f02.
 

@@ -24,7 +24,7 @@ Each section below is a separate page, ordered by its number, so a reader intere
 - The dispute procedure for contested bindings, and the verification playbook.
 - The versioned reference indexer that recomputes FPV from public settlement events.
 - Pointers to the FIP-fixed durations of `POST_PERIOD`, `VERIFICATION_WINDOW`, and `EPOCHS_PER_QUARTER` (not edited here; changed only by an SRA code upgrade).
-- A pointer to the contract upgrade runbook, which lives with the contracts: [`docs/UPGRADE.md`](https://github.com/filecoin-project/solstice/blob/main/docs/UPGRADE.md) in the [solstice](https://github.com/filecoin-project/solstice) repository. Upgrades are driven by engineers at the request of governance (an accepted FIP, approved by both tiers' Safes), and the runbook stays next to the scripts and workflows it depends on so they are reviewed together.
+- [The contract upgrade runbook](https://github.com/filecoin-project/solstice/blob/main/docs/UPGRADE.md) in the [solstice](https://github.com/filecoin-project/solstice) repository. Upgrades are driven by engineers at the request of governance (an accepted FIP, approved by both tiers' Safes), and the runbook stays next to the scripts and workflows it depends on so they are reviewed together.
 - The wallet addresses for each tier's Safes.
 - Future issue templates, application forms, and workflow automation.
 
