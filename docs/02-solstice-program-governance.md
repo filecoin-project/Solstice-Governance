@@ -165,6 +165,7 @@ Same flow as 2.2.5; the FIP carries the upgrade. It executes through the pre-upg
 2. Both SWA Safes approve replacing the registered Safe address (`ReplaceOwner`), with the action’s calldata and `taskId` recorded in the issue before the first approval (see task register above).
 3. It binds at once when the second Safe approves (FIP: cooperative rotation is not held).
 4. Announce here with a post-mortem.
+5. Engineering follow-up, in the solstice repo's [owner change FAQ](https://github.com/filecoin-project/solstice/blob/main/docs/UPGRADE.md#how-do-i-handle-an-owner-change): register the operations key as a proposer on the new Safe, update the owner in `deployments.json` with a version bump, and confirm with `check-setup` and `verify`. Until that lands, the upgrade tooling refuses to propose.
 
 The SWA-internal timelock covers gate-parameter changes and code upgrades only — not cooperative Safe replacement.
 
@@ -342,6 +343,7 @@ The one registry change that requires a FIP (e.g., the Phase 2 permissionless-ad
 
 1. Veto every open task in the SRA register first. `removeOwner` does not clear pending approvals; a freed owner bit can recycle to a future owner still carrying old approvals (`Owners.sol`).
 2. Both Safes approve the replacement (`ReplaceOwner`), with the action’s calldata and `taskId` recorded in the issue before the first approval (see task register above). It binds at once when the second Safe approves and is announced with a post-mortem. Not held and not cancellable.
+3. Engineering follow-up, in the solstice repo's [owner change FAQ](https://github.com/filecoin-project/solstice/blob/main/docs/UPGRADE.md#how-do-i-handle-an-owner-change): register the operations key as a proposer on the new Safe, update the owner in `deployments.json` with a version bump, and confirm with `check-setup` and `verify`. Until that lands, the upgrade tooling refuses to propose.
 
 Hostile/deadlocked case: a SWA write re-points the service stream's writer to a redeployed SRA, always under a published FIP; registry state is reconstructible from public data. See §2.5, Safety and rotation playbook.
 
@@ -466,7 +468,7 @@ The threat model rests on the two-Safes rule: no single Safe can make a change b
 
 ### 2.5.3 Replacing a registered Safe
 
-**Cooperative case:** both Safes approve the replacement; it binds at once and is not cancellable; announced here with a post-mortem. See 2.2.7 (SWA) and 2.3.9 (SRA).
+**Cooperative case:** both Safes approve the replacement; it binds at once and is not cancellable; announced here with a post-mortem. See 2.2.7 (SWA) and 2.3.9 (SRA). The engineering steps that follow a replacement (proposer registration, `deployments.json`, version bump, verification) are in the solstice repo's [owner change FAQ](https://github.com/filecoin-project/solstice/blob/main/docs/UPGRADE.md#how-do-i-handle-an-owner-change).
 
 **Hostile or deadlocked case, always under a published FIP:** for SRA Governance, a SWA write re-points the service stream's designated writer to a redeployed SRA; registry state is reconstructible from public data, and no network upgrade is needed. For SWA Governance, a coordinated network upgrade migrates the SWA address in f02.
 
