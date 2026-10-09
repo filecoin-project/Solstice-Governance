@@ -243,10 +243,9 @@ For Phase 2 (subject to a future FIP): admission becomes permissionless, enabled
 > **Requires:** both SRA Safes · **Hold:** none · **Enforced by:** SRA · **Cancel:** not cancellable (either Safe may `veto(taskId)` only while half-approved) · **No FIP**
 
 1. Application filed as an issue (identity/team, funding plan, declared (payer, operator) pairs and measurement rules).
-2. SRA Governance scores it against the admission rubric. **Admission checklist — payout wallet:** resolve the proposed wallet to its actor ID and confirm the actor code is **not** a payment channel. Since solstice #78 the SRA rejects a wallet with no actor, but payment channels can still pass `_assertWalletAdmissible` and then fail in `SetShares` / `ReplaceAddress` (`ServiceRewardsActor.sol`).
-3. Both Registry Safes approve `AddOrchestrator(orch, wallet)` using the task-register issue’s canonical calldata; the uniqueness rule reverts any pair already bound elsewhere.
-4. Either Safe may cancel (veto while half-approved).
-5. Binds; record in the issue **and add the Orchestrator to the [Orchestrator Registry (2.3.12)](#2312-orchestrator-registry-admitted-orchestrators)**.
+2. Both Registry Safes approve `AddOrchestrator(orch, wallet)` using the task-register issue’s canonical calldata; the uniqueness rule reverts any pair already bound elsewhere.
+3. Either Safe may cancel (veto while half-approved).
+4. Binds; record in the issue **and add the Orchestrator to the [Orchestrator Registry (2.3.12)](#2312-orchestrator-registry-admitted-orchestrators)**.
 
 </details>
 
