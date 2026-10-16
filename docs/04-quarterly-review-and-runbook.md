@@ -11,9 +11,9 @@ This section is the runbook for the quarterly review: the community reporting an
 - [4.3 Example](#43-example)
 - [4.4 Declaration, verification and escalation](#44-declaration-verification-and-escalation)
 
-## 4.1 Community Reporting and Disclosure
+## 4.1 Reporting and Disclosure
 
-**Every admitted Orchestrator files a Quarterly Community Report, from the beginning of their first quarter of operation, using the template in [§4.2](#42-quarterly-report-template). Failure to file is a removal trigger and forfeits re-admission for the following quarter.**
+**Every admitted Orchestrator files a Quarterly Orchestrator Report, from the beginning of their first quarter of operation, using the template in [§4.2](#42-quarterly-report-template). Failure to file is a removal trigger and forfeits re-admission for the following quarter.**
 
 Per [§3.1, Policy 9](03-orchestrator-operational-guidelines.md#31-policies), the report covers claims and reward reception; the fields themselves are fixed by the template.
 
@@ -25,7 +25,7 @@ Per [§3.1, Policy 9](03-orchestrator-operational-guidelines.md#31-policies), th
 4. Filing deadline: within **7 days after the verification window closes** (after values bind — posting is 3 days then verification 7 days). The reported FPV must match the **bound** value (the `PostVolume` figure, or the `VolumeCorrected` figure if SRA corrected it in-window). A **zero quarter** (no `PostVolume`, because the contract rejects zero) reports bound value 0 with `no message (zero quarter)` and the indexer run as evidence.
 5. On merge, the report is listed in [Section 5, Quarterly Reports](05-quarterly-reports.md).
 
-**If a report is late or incomplete,** SRA Governance opens a public issue and the Orchestrator has the standard response window (7 days) to remedy it before the removal trigger in [§4.4.3](#443-verification-and-removal) is considered. FIP-0118 makes failure to file a removal trigger and forfeits re-admission for the following quarter. The 7-day window is this repository's response step. A later return, if the Safes admit one, is a fresh `AddOrchestrator` with a fresh application, and it is not available in the forfeited quarter ([§2.3.2](02-solstice-program-governance.md#232--remove-an-orchestrator-removeorchestrator)).
+**If a report is late or incomplete,** SRA Governance opens a public issue and the Orchestrator has the standard response window (7 days) to remedy it before the removal trigger in [§4.4.3](#443-verification-and-removal) is considered. Under FIP-0118, failure to file is a removal trigger and forfeits re-admission for the following quarter. The 7-day window is this repository's response step. A later return, if the Safes admit one, is a fresh `AddOrchestrator` with a fresh application, and it is not available in the forfeited quarter ([§2.3.2 RemoveOrchestrator](02-solstice-program-governance.md#23-sra-governance-tier--tasks-and-actions)).
 
 **Objecting to a filed report.** Anyone may object to a filed report by opening an issue in this repository, with the orchestrator, the quarter, the figure or statement disputed, and the evidence. There is no standing requirement. Timing decides the remedy:
 
@@ -36,7 +36,7 @@ An objection to a report's completeness or disclosures, rather than its figures,
 
 ## 4.2 Quarterly report template
 
-> The report template and example below are repository content. Changing them is a Change-Log action: open an issue, propose the edit by pull request, and record it in the Change Log — not an ad-hoc edit.
+> The report template and example below are repository content. Changing them follows the process in [§6.1](06-changelog.md#61-how-changes-are-classified) — open an issue, propose the edit by pull request, record it in the Change Log. Not an ad-hoc edit.
 
 The fillable template lives at [`quarterly-reports/_TEMPLATE.md`](quarterly-reports/_TEMPLATE.md). **That file is the single source of truth**; this section states what it must contain and where each figure comes from, so the two cannot drift.
 
@@ -44,9 +44,9 @@ The fillable template lives at [`quarterly-reports/_TEMPLATE.md`](quarterly-repo
 
 | # | Section | What it must carry |
 | :-- | :-- | :-- |
-| 1 | Orchestrator identification and rewards received | Orchestrator name, registered wallet address, quarter covered, date submitted, and the reference-indexer version used to produce the figures. |
+| 1 | Orchestrator identification and rewards received | Orchestrator name; identity (`orch`); payout wallet; the f1 claim keeper where the payout wallet is a Safe, f410 or EVM contract; quarter covered; date submitted; and the reference-indexer version used. Plus §1.1: rewards received on exactly one stated basis — Claimed (with claim transaction references) or Accrued in f02 at quarter end — used consistently throughout the report. |
 | 2 | Financial performance | The `FPV_i(Q)` headline; the admitted-stablecoin component (USD at face value); the per-pricing-period FIL conversion working (one row per qualifying print); the parameters in effect for Q; the FPV total in both atto-USD and human-readable USD with its `PostVolume` / `VolumeCorrected` transaction reference **or** `no message (zero quarter)` plus indexer evidence; booked revenue by customer segment; and pipeline and sales commentary. |
-| 3 | Use of block rewards | Total block rewards received, on-chain disbursements from the Orchestrator wallet, data onboarded (active), storage providers engaged, and a spend-category breakdown. |
+| 3 | Use of block rewards | The total matching §1.1 on the same basis, on-chain disbursements from the Orchestrator wallet, data onboarded (active), storage providers engaged, and a breakdown of how rewards were used. |
 | 4 | Retrospective | What worked, what didn't, key learnings, and any other context. |
 | 5 | Next quarter outlook | High-level plan and focus areas, and anticipated changes to strategy, spend, or team. |
 
@@ -56,31 +56,42 @@ The fillable template lives at [`quarterly-reports/_TEMPLATE.md`](quarterly-repo
 
 ## 4.3 Example
 
-> **Illustrative only** The figures below exist to show the expected level of detail and the shape of a completed report. They are not targets, benchmarks, or expectations, and the wallet address and transaction references are fabricated.
+> **Illustrative only.** The figures below exist to show the expected level of detail and the shape of a completed report. They are not targets, benchmarks, or expectations, and the wallet address and transaction references are fabricated.
 
 ### 1. Orchestrator identification and rewards received
 
 | Field | Value |
 | :-- | :-- |
 | Service Orchestrator name | Example Orchestrator LLC |
-| Orchestrator wallet address | `0x2d74…1976` |
+| Orchestrator identity (`orch`) | `0x2d74…1976` |
+| Payout wallet | `0x8ab1…44c0` |
+| Claim keeper (f1) | `f1exampleclaimkeeperaddress…` |
 | Quarter covered | Q3 2026 |
 | Date submitted | 8 October 2026 |
 | Reference-indexer version used | `v0.3.1` (commit `a1b2c3d`) |
 
+**1.1 Rewards received**
+
+| Field | Value |
+| :-- | :-- |
+| Reporting basis | Claimed |
+| Amount (FIL) | 684,000 |
+| Claim transactions | `bafy…c1`, `bafy…c2` |
+| Accrual note | N/A |
+
 ### 2. Financial performance
 
-**2.1 FPV headline** — `FPV_i(Q)` = **$11,200** (USD)
+**2.1 FPV headline** — `FPV_i(Q)` = **$11,203** (USD)
 
-**2.2 Stablecoin component** — admitted-stablecoin volume: **$7,400** (USDC)
+**2.2 Stablecoin component** — admitted-stablecoin volume: **$7,400** (USD)
 
 **2.3 FIL conversion working, per pricing period**
 
 | Pricing period (epoch range) | Print reference | `lotUsd` | `claimFil` | Implied rate (USD/FIL) | attoFIL settled | Floored USD |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
 | 4 812 000 – 4 833 600 (calibration) | `bafy…p1` | 250.00 | 250.0 | 1.00 | 2.10e21 | 2,100 |
-| 4 833 601 – 4 855 200 (calibration) | `bafy…p2` | 250.00 | 245.1 | 1.02 | 1.67e21 | 1,700 |
-| **FIL component (sum of floored USD)** |  |  |  |  |  | **3,800** |
+| 4 833 601 – 4 855 200 (calibration) | `bafy…p2` | 250.00 | 245.1 | 1.02 | 1.67e21 | 1,703 |
+| **FIL component (sum of floored USD)** |  |  |  |  |  | **3,803** |
 
 **2.4 Parameters in effect for Q**
 
@@ -92,15 +103,15 @@ The fillable template lives at [`quarterly-reports/_TEMPLATE.md`](quarterly-repo
 | `BoundVolume(Q-1)` | $5,800 |
 | `PRICE_BAND` | 30% |
 | `N(Q-1)` | 1 |
-| Admitted-stablecoin whitelist (in force for Q) | USDC |
+| Admitted-stablecoin whitelist (in force for Q) | in stablecoin |
 | Admitted Filecoin Pay contract addresses (as of Q) | `0xfp…01` |
 
 **2.5 FPV total**
 
 | Field | Value |
 | :-- | :-- |
-| `FPV_i(Q)` total (atto-USD) | 1.12e22 |
-| `FPV_i(Q)` total (USD) | $11,200 |
+| `FPV_i(Q)` total (atto-USD) | 1.1203e22 |
+| `FPV_i(Q)` total (USD) | $11,203 |
 | `PostVolume` reference | `bafy…pv3` |
 
 **2.6 Booked revenue by customer segment**
@@ -117,26 +128,30 @@ The fillable template lives at [`quarterly-reports/_TEMPLATE.md`](quarterly-repo
 
 | Field | Value |
 | :-- | :-- |
-| New pipeline generated this quarter | Two new accounts added: a post-production house (200 TB active archive) and a games studio (80 TB asset distribution). |
+| New pipeline generated this quarter | Two new accounts added: a post-production house (200 TiB active archive) and a games studio (80 TiB asset distribution). |
 | Pipeline conversion / notable deals closed | Converted the Q2 genomics pilot to a one-year reserved term; funded the migration engineering, whose one-time fee settled on-rail within Q3. |
-| Forward-looking pipeline commentary | A municipal open-data tender (~400 TB) is won on compliance but procurement timing is outside our control; we are not treating it as Q4 volume. Qualitative and non-binding. |
+| Forward-looking pipeline commentary | A municipal open-data tender (~400 TiB) favours us on compliance grounds, but procurement timing is outside our control, so we are not treating it as Q4 volume. Qualitative and non-binding. |
 
 ### 3. Use of block rewards
 
 | Field | Value |
 | :-- | :-- |
-| Total block rewards received this quarter | 684,000 FIL |
-| On-chain disbursements | 412,000 FIL out of the Orchestrator wallet — deal subsidies, migration engineering, and integration payments |
+| Total matching §1.1 (same basis) | 684,000 FIL |
+| On-chain disbursements | 615,600 FIL out of the Orchestrator wallet — deal subsidies, migration engineering, and integration payments |
 | Data onboarded, active | 730 TiB under active deals attributed to the service |
 | Storage providers engaged | 6 distinct SP actor IDs |
 
-| Spend category | Amount / detail |
-| :-- | :-- |
-| Deal subsidies | 35% — first-quarter discounts converting pilots to reserved terms |
-| Sales and business development | 25% — two sellers, one solutions engineer |
-| Solutions engineering | 15% — migration tooling and onboarding support |
-| Product and integrations | 15% — reseller and channel integration work |
-| Reserve | 10% — held, unconverted |
+Percentages are of the 684,000 FIL reported in §1.1, not of the amount disbursed.
+
+| Use of rewards | FIL | % of §1.1 | Detail |
+| :-- | --: | --: | :-- |
+| Deal subsidies | 239,400 | 35% | First-quarter discounts converting pilots to reserved terms |
+| Sales and business development | 171,000 | 25% | Two sellers, one solutions engineer |
+| Solutions engineering | 102,600 | 15% | Migration tooling and onboarding support |
+| Product and integrations | 102,600 | 15% | Reseller and channel integration work |
+| Not yet deployed at quarter end | 68,400 | 10% | — |
+| **Total** | **684,000** | **100%** | |
+
 
 ### 4. Retrospective: what worked, what didn't, learnings
 
@@ -151,7 +166,7 @@ The fillable template lives at [`quarterly-reports/_TEMPLATE.md`](quarterly-repo
 
 | Field | Value |
 | :-- | :-- |
-| High-level plan / focus areas | Convert the two Q3 accounts to reserved terms; keep the reserve intact. |
+| High-level plan / focus areas | Convert the two Q3 accounts to reserved terms. |
 | Anticipated changes to strategy, spend, or team | Shift spend from subsidies toward pipeline generation. |
 
 ## 4.4 Declaration, verification and escalation
@@ -193,7 +208,7 @@ The exception audit in §4.4.1(b) is never pre-clearance. A scheduled audit of i
 **Terms.**
 
 - **Wrongful claim.** A `RegisterPairs` binding that the dispute process finds the registrant does not serve for that client. The FIP uses "a claim adjudicated wrongful" and names a pattern of wrongful claims as removal ground. While the quarter runs, and the displaced binding's application epoch is in the current quarter or later, the remedy is `ReassignBinding` with `inherit = true` ([§2.3.11](02-solstice-program-governance.md#2311--reassign-a-binding-reassignbinding)).
-- **Wash trading and self-dealing.** The off-chain judgment FIP-0118 assigns to SRA Governance: distinguishing genuine client demand from circular payments between colluding parties.
+- **Circular or self-dealing volume.** The off-chain judgment FIP-0118 assigns to SRA Governance: distinguishing genuine client demand from payments circulated between related or colluding parties to inflate measured volume.
 
 The evidence for a relationship is the list in [§4.4.2](#442-dispute-resolution-for-contested-bindings). 
 
@@ -202,14 +217,14 @@ The evidence for a relationship is the list in [§4.4.2](#442-dispute-resolution
 - A public-data anomaly surfaced by the quarterly FPV recomputation or by monitoring (volume spikes at quarter or gate boundaries, figures that clear the target by a hair, volume with no matching storage activity). These phrases are review triggers, not automatic findings, and they have no numeric cutoff in this repository. 
 - A community report filed as an issue in this repository.
 - A contested binding escalated from the dispute process.
-- A "correction blocked" note under [§2.3.4](02-solstice-program-governance.md#234--quarterly-fpv-verification--correction-correctvolume), if the owners confirm that it is a trigger.
+- A "correction blocked" note under [§2.3.4 CorrectVolume](02-solstice-program-governance.md#23-sra-governance-tier--tasks-and-actions), recording a recomputed figure that did not bind.
 
 ### 4.4.5 Escalation
 
 1. **Trigger** → run the relevant on-chain checks (see [§3.2](03-orchestrator-operational-guidelines.md#32-orchestrators-tasks-and-actions)); the recomputation is deterministic and public.
 2. **Request evidence** if an anomaly holds: open a public issue and request on- and off-chain evidence; the orchestrator answers within the response window (7 days).
 3. **Decide:** reassign a binding under [§2.3.11](02-solstice-program-governance.md#2311--reassign-a-binding-reassignbinding), or `RemoveOrchestrator`. Record the written reason.
-4. Registry changes bind at once and are recorded in the Change Log (see [§2.3](02-solstice-program-governance.md#23-sra-governance-tier--tasks-and-actions)) and are recorded, with rationale, in the issue.
+4. **Registry changes bind at once**. Record the action and its rationale on the issue, and record the change in the [Program Change Log](06-changelog.md) per [§6.1](06-changelog.md#61-how-changes-are-classified).
 
 ---
 
