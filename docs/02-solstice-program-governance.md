@@ -55,9 +55,9 @@ Informative summary; the lifecycle table in the FIP is normative.
 | SWA internal change (gate parameters, code upgrade) | Internal timelock, equal to the f02 window (FIP-fixed) | SWA | Either SWA Safe via `veto(taskId)` |
 | Cooperative Safe replacement (`ReplaceOwner`) | None; binds at once | SWA or SRA | Not cancellable |
 | Quarterly gate step | 7-day queue, visibility only | f02 | No one (mechanism-executed) |
-| Registry change (add/remove orchestrator, replace wallet, set admitted lists, set pricing, replace owner) | None; binds at once | SRA | Not cancellable |
-| Registry / code upgrade | Requires an approved FIP; held for `SRA_UPGRADE_HOLD` (20,160 epochs / 7 days) before it binds | SRA | Either SRA Safe via `veto(taskId)` during the hold |
-| CorrectVolume | None; bounded by the verification window | SRA | Not cancellable |
+| Registry change (add/remove Orchestrator, replace wallet, set admitted lists, set pricing) | None; binds at once | SRA | Not cancellable |
+| SRA code upgrade | Requires an accepted FIP; held for `SRA_UPGRADE_HOLD` (20,160 epochs / 7 days) before it binds | SRA | Either SRA Safe via `veto(taskId)` during the hold |
+| `CorrectVolume` | None; bounded by the verification window | SRA | Not cancellable once both Safes approve; either Safe may `veto(taskId)` while half-approved |
 | SetShares, PostVolume, RegisterPairs | None; bounded by the window, the posting period, and the uniqueness check | SRA | Not cancellable |
 
 > FIP-0118 fixes the `SWA_TIMELOCK` hold in L1:
@@ -217,9 +217,8 @@ Registry changes need both Registry Safes but need no per-change FIP (the one ex
 > **Standard registry-change flow** (referenced by 2.3.1–2.3.5 and by the Safe replacement in 2.5.3):
 >
 > 1. Trigger and diligence (application, dispute outcome, audit finding, rotation request, or list update).
-> 2. Both Registry Safes approve the relevant call. The first Safe’s transaction only records its approval (`UnanimousGovernance`); the action body runs in the second Safe’s transaction (SRA header: the second Safe MUST dry-run the calldata before approving). The second Safe signs only if a dry-run simulation of **its own** approval succeeds, and notes the simulation result on the task-register issue. On a simulated revert (wrong wallet, closed window, pending shares, etc.), either Safe `veto`s and the action is resubmitted. 
-> 3. The change binds when the second SRA Safe approves (no pending queue, no cancellation path). Record it in the Change Log.
-> 4. Both Registry Safes can see the submitted task. The `Submitted` event carries the `taskId`, not the full content; the issue carries the content.
+> 2. Both Registry Safes approve the relevant call. The first Safe's transaction only records its approval (`UnanimousGovernance`); the action body runs in the second Safe's transaction, so the second Safe MUST dry-run the calldata before approving. It signs only if a dry-run simulation of **its own** approval succeeds, and notes the simulation result on the task-register issue. On a simulated revert (wrong wallet, closed window, pending shares), either Safe `veto`s and the action is resubmitted.
+> 3. The change binds when the second SRA Safe approves (no pending queue, no cancellation path). Record it in the [Program Change Log](06-changelog.md) per [§6.1](06-changelog.md#61-how-changes-are-classified).> 4. Both Registry Safes can see the submitted task. The `Submitted` event carries the `taskId`, not the full content; the issue carries the content.
 > 5. Record the outcome in the issue/repository, and update the [Orchestrator Registry](#2312-orchestrator-registry-admitted-orchestrators) where the change affects an Orchestrator's status.
 
 The recomputation is deterministic: any observer running the reference indexer over the same settlement events and registry state reaches the same figure.
@@ -233,7 +232,7 @@ A uniqueness rule is fixed by the FIP:
 
 > "Indeed, the SRA enforces that each (payer, operator) pair is bound to at most one Orchestrator, so a registration that duplicates an existing binding reverts."
 
-For Phase 2 (subject to a future FIP): admission becomes permissionless, enabled by a standard attribution-metadata interface specified in a future FIP. The rubric and diligence apply to Phase 1 only.
+For Phase 2 (subject to a future FIP): admission becomes permissionless, enabled by a standard attribution-metadata interface specified in a future FIP. Phase 1 admission is discretionary (FIP-0118 §4.3). The admission rubric will be published here once defined.
 
 <details>
 <summary><strong>2.3.1 — Admit an Orchestrator (AddOrchestrator)</strong></summary>
@@ -414,21 +413,7 @@ Removing the sole admitted Orchestrator burns the whole service stream from the 
 **Per-Orchestrator entry template**
 
 When admitting an Orchestrator, add a row to the table above and a detailed entry using this template:
-
-```markdown
-### <Orchestrator name>
-
-- **Identity (`orch`):** <f4… / 0x… address>
-- **Payout wallet:** <f4… / 0x… address> (may differ from identity)
-- **Status:** Active | Removed
-- **Admitted:** <quarter, epoch, tx hash>
-- **Declaration issue:** #<issue number> (link)
-- **Contact:** <public contact per the §3.1 responsiveness rule>
-- **Recovery contact:** <a second contact, distinct from the identity key>
-- **Registered (payer, operator) pairs:** <pointer to on-chain registry / list>
-- **Measurement rules:** <short description or link to service-contract metadata>
-- **History:** <admit / replace / remove events, each with date + tx>
-```
+**Per-Orchestrator entry template.** This block is the definitive list of declaration fields; [§3.1 Policy 6](03-orchestrator-operational-guidelines.md#31-policies) and [§3.2.4](03-orchestrator-operational-guidelines.md#32-orchestrators-tasks-and-actions) describe the duty, not the field list.
 
 > Field definitions follow the Orchestrator guidelines: identity and payout wallet in [§3.2](03-orchestrator-operational-guidelines.md#32-orchestrators-tasks-and-actions), the declaration file in [§3.1, Policy 6](03-orchestrator-operational-guidelines.md#31-policies), and the (payer, operator) binding rules in [§3.1, Policy 3](03-orchestrator-operational-guidelines.md#31-policies) (FIP-fixed uniqueness).
 
@@ -440,12 +425,12 @@ When admitting an Orchestrator, add a row to the table above and a detailed entr
 
 Each tier consists of two organization multisigs (Safes) registered in the contract it governs. The protocol sees only the two addresses.
 
-| Tier | Contract governed | Organization 1 Safe (address) | Organisation 2 Safe (address) | Rule (fixed by the FIP) |
+| Tier | Contract governed | Organization 1 Safe (address) | Organization 2 Safe (address) | Rule (fixed by the FIP) |
 | :-- | :-- | :-- | :-- | :-- |
 | SWA Governance (§2.2) | Stream Weights Actor (SWA) | 0x4d6db5600c908b3C9b9888cFef43f27F38b203e9 | 0x024a3c8CCA435db64D2dfa0f903E4823A5eBdf63 | Both approve; either alone cancels |
 | SRA Governance (§2.3) | Service Rewards Actor (SRA) | 0x6c724FF811f51945d95872CF99FBd3fF63f7cFa2 | 0xFb1B58925947E52B3f75BAc3D9fB5325cfb36371 | Both approve; binds at once (not cancellable; SRA code upgrades held, either Safe may veto during the hold) |
 
-Each organization runs a separate Safe per tier — four accounts in total — so approvals cannot be replayed across surfaces. That sentence describes four accounts. It does not say whether the same two legal entities sit in both tiers. FIP-0118 §4.2 requires one multisig per entity per tier. It permits an entity to hold one multisig in each tier, and it does not name the entities. This repository does not assert that the four Safes are or are not held by the same two organizations.
+Each organization runs a separate Safe per tier — four accounts in total — so approvals cannot be replayed across surfaces. That sentence describes four accounts. It does not say whether the same two legal entities sit in both tiers. FIP-0118 §4.2 requires one multisig per entity per tier. 
 
 Addresses match [`filecoin-project/solstice` `deployments.json`](https://github.com/filecoin-project/solstice/blob/main/deployments.json) for Filecoin mainnet (`314`): Organization 1 = `*Owner2`, Organisation 2 = `*Owner1`. The SRA row’s cancel rule follows §2.1.2 (registry changes bind at once; only an SRA code upgrade is held and cancellable).
 
@@ -477,15 +462,16 @@ As of solstice `deployments.json` commit `b9a63a87b5adee272c16d7e507cc9c127fb34f
 | `MIN_LOT_ALPHA` | SRA parameter event (`SetPricingParams`); applies from the first epoch of the next quarter | 1/400 | Same |
 | `PRICE_BAND` | SRA parameter event (`SetPricingParams`); applies from the first epoch of the next quarter | 30% | Same |
 | `REGISTRATION_CUTOFF` | SRA parameter event (`SetPricingParams`); applies from the first epoch of the next quarter | 20,160 epochs (7 days) | Scale to the calibnet quarter before use |
-| Admitted-stablecoin whitelist and admitted Filecoin Pay contract addresses | Latest `SetAdmittedLists` event, which is the authoritative record. Applies from the first epoch of the next quarter. This repository only mirrors the event. | Installed pre-activation. |
+| Admitted-stablecoin whitelist and admitted Filecoin Pay contract addresses | Latest `SetAdmittedLists` event, which is the authoritative record. Applies from the first epoch of the next quarter. This repository only mirrors the event. | To be admitted. | To be admitted; not yet published. |
 | Dispute resolution target ([§4.4.2](04-quarterly-review-and-runbook.md#442-dispute-resolution-for-contested-bindings)) | This repository | 7 days | 7 days |
 | SWA objection response-time commitment ([§2.2.8](#228--objection-during-an-swa-hold)) | This repository | 7 days | 7 days |
 | Orchestrator response window ([§4.4.5](04-quarterly-review-and-runbook.md#445-escalation)) | This repository | 7 days | 7 days |
 | Quarterly report filing deadline ([§4.1](04-quarterly-review-and-runbook.md#41-community-reporting-and-disclosure)) | This repository | Within 7 days after the verification window closes | Same |
-| Admission rubric | This repository | Not set. | — |
+| Admission rubric | This repository | Not set. Published here once confirmed. | — |
 
+`ACTIVATION_EPOCH` is the first epoch at which the migrated state is in force, i.e. the network-upgrade epoch plus one. Quarter 1 begins at that epoch.
 
-Mainnet and calibnet values are the deployed values in [`deployments.json`](https://github.com/filecoin-project/solstice/blob/main/deployments.json) (keys `314` and `314159`). They are candidate values recorded here for operators; they do not amend the FIP. A third key, `3141592` (local devnet), is not operational and is not mirrored here.
+Mainnet and calibnet values are the values currently in [`deployments.json`](https://github.com/filecoin-project/solstice/blob/main/deployments.json) (keys `314` and `314159`). They are recorded here for operators and are not an amendment of the FIP. A third key, `3141592` (local devnet), is not operational and is not mirrored here.
 
 Two cautions when reading this table:
 
@@ -528,7 +514,7 @@ Applies to either tier; the mechanics are the same on the SRA and the SWA.
 3. Record the new Safe in [2.4.1 Safe Addresses](#241-safe-addresses) and the [Program Change Log](06-changelog.md), with the reason for the replacement; a compromise also gets a post-mortem.
 4. Do the engineering items in the [owner change FAQ](https://github.com/filecoin-project/solstice/blob/main/docs/UPGRADE.md#how-do-i-handle-an-owner-change). The issue pins that runbook by commit.
 
-**Hostile or deadlocked case**, always under a published FIP. The path depends on which tier has failed (FIP-0118 §4.3). A network upgrade is not the path for both.
+**Hostile or deadlocked case**, always under a published FIP. The path depends on which tier has failed (FIP-0118 §4.3). The two tiers have different remedies; a network upgrade is the path for only one of them.
 
 - **Rogue or deadlocked SRA.** SWA Governance re-points the service stream's designated writer to a redeployed SRA (`SetDistribution`, §2.2.4). Registry state is reconstructible from public data. Until that write binds, the incumbent SRA keeps the service-stream flow. The gate keeps reading the previous SRA until an SWA code upgrade changes the wired SRA address (FIP-0118, Security Considerations). That code upgrade is a FIP and a contract upgrade. It is not a network upgrade (FIP-0118 §4.1).
 - **Rogue or deadlocked SWA.** A network upgrade migrates the SWA address in f02 (FIP-0118 §4.3 and §3.1).
