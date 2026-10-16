@@ -46,7 +46,7 @@ Report **rewards received** under exactly one of these bases for the quarter (st
 
 ### 2.3 FIL conversion working, per pricing period *(from indexer)*
 
-One row per qualifying print, up to `MAX_PRICE_PERIODS`.
+One row per qualifying print in the quarter
 
 | Pricing period (epoch range) | Print reference (fee-auction claim tx) | `lotUsd` | `claimFil` | Implied rate (`lotUsd`/`claimFil`, USD/FIL) | attoFIL settled | Floored USD |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
@@ -64,11 +64,11 @@ Printed here because `MIN_LOT(Q)` is derived off-chain and is stored neither on-
 | `MIN_LOT_FLOOR` | *(from indexer)* |
 | `MIN_LOT_ALPHA` | *(from indexer)* |
 | `BoundVolume(Q-1)` | *(from indexer)* |
-| `FEE_RATE` | *(from indexer)* |
 | `PRICE_BAND` | *(from indexer)* |
 | `N(Q-1)` | *(from indexer)* |
 | Admitted-stablecoin whitelist (in force for Q) | *(from indexer)* |
 | Admitted Filecoin Pay contract addresses (as of Q) | *(from indexer)* |
+| `REGISTRATION_CUTOFF` | *(from indexer)* |
 
 ### 2.5 FPV total *(from indexer; must match the bound value on-chain — PostVolume, VolumeCorrected, or zero with no PostVolume)*
 
@@ -95,6 +95,8 @@ Printed here because `MIN_LOT(Q)` is derived off-chain and is stored neither on-
 | Pipeline conversion / notable deals closed | *[enter detail]* |
 | Forward-looking pipeline commentary | *[qualitative, non-binding]* |
 
+Forward-looking statements in this section are qualitative and non-binding; see the repository [Disclaimer](../../DISCLAIMER.md).
+
 ## 3. Use of block rewards
 
 Amounts below should reconcile to the §1.1 figure (claimed or accrued). “Use” means how service-stream rewards were deployed this quarter, not a second rewards total.
@@ -103,7 +105,7 @@ Amounts below should reconcile to the §1.1 figure (claimed or accrued). “Use�
 | :-- | :-- |
 | Total matching §1.1 (same basis) | *[enter amount]* |
 | On-chain disbursements | *[outbound transfers from the Orchestrator wallet — e.g. deal subsidies, integration payments]* |
-| Data onboarded, active | *[bytes under active deals attributed to the service]* |
+| Data onboarded, active | *[TiB under active deals attributed to the service]* |
 | Storage providers engaged | *[count of distinct SP actor IDs taking deals attributed to the service]* |
 
 | Spend category | Amount / detail |
