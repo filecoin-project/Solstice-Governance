@@ -4,11 +4,13 @@
 >
 > The Change Log records every permanent change to this repository, in two categories: (a) governance-tier actions (SRA and SWA) and their associated FIPs, PRs, and network-upgrade announcements; and (b) amendments to the repository's own content — Quarterly Orchestrator Report template and examples, admission rubric, parameters, and any section text.
 >
-> Both categories are made by pull request and recorded here.
+> Both categories are made by pull request with public review, and recorded here. This is the process referred to from the README, §2.3, §3.2 and §4.2.
+
+> **This section is the single definition of what counts as a change, how each type is enacted, and what must be recorded.** Other pages point here rather than restating it.
 
 ## 6.1 How changes are classified
 
-Per [FIP-0118](https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0118.md) §4.4, there are three tiers of change; every entry below is tagged with one:
+Per [FIP-0118](https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0118.md) §4.4, there are three types of change; every entry below is tagged with one:
 
 | Type | What it covers | How it is enacted |
 | :-- | :-- | :-- |
@@ -58,11 +60,10 @@ Each entry should link: (a) the **community issue / discussion** that raised the
 ## 2026-09-23 — Canonical calldata and payment-channel wallet
 
 - Task register: action issue carries the calldata both Safes copy; address lists sorted ascending before encoding (`taskId` = `keccak256(msg.data)`).
-- Admit (§2.3.1): checklist step — resolve payout wallet to actor ID; actor code must not be a payment channel (solstice #78 known gap).
+- Admit (§2.3.1): checklist step — resolve payout wallet to actor ID; actor code must not be a payment channel ([solstice #78](https://github.com/filecoin-project/solstice/issues/78)).
 - ReplaceWallet (§2.3.3): payment-channel recovery order — `ReplaceWallet` → `SubmitShares` → `RemoveOrchestrator`.
 
-The §2.3.1 actor-code step was absent from the procedure after this entry. The 2026-10-14 entry restores it, on admission and on `ReplaceWallet`.
-
+The §2.3.1 actor-code step recorded here was later dropped from the procedure in error. The 2026-10-14 entry restores it, on admission and on `ReplaceWallet`.
 ## 2026-09-23 — FIP-0118 leftovers (ReplaceWallet)
 
 - Doc 02/03: rename leftover “controlling wallet” / `Replace(old, new)` to `ReplaceWallet` / payout wallet.
@@ -77,7 +78,7 @@ The §2.3.1 actor-code step was absent from the procedure after this entry. The 
 
 ## 2026-09-22 — Align operational docs with FIP-0118
 
-Doc-only correction (Rod review §1): registry actions and cooperative `ReplaceOwner` bind without a hold; `POST_PERIOD` / `VERIFICATION_WINDOW` are FIP deployment-fixed; remove `FinalizeConversion`; clarify share-map no-op, filing-after-bind, pricing/gate parameter names, upgrade hold + `veto(taskId)`, SWA cancel paths, and Orchestrator identity vs payout wallet. No FIP or contract change.
+Doc-only correction (engineering review, September 2026): registry actions and cooperative `ReplaceOwner` bind without a hold; `POST_PERIOD` / `VERIFICATION_WINDOW` are FIP deployment-fixed; remove `FinalizeConversion`; clarify share-map no-op, filing-after-bind, pricing/gate parameter names, upgrade hold + `veto(taskId)`, SWA cancel paths, and Orchestrator identity vs payout wallet. No FIP or contract change.
 
 ## 6.3 Entry template
 
