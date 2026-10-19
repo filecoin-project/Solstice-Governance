@@ -12,11 +12,9 @@ Every quarter, each Orchestrator files a report using the template in [§4.2](04
 
 ## 5.2 Report index
 
-> **No reports filed yet.** The first entries appear here once the program starts and the first quarter closes.
-
 | Quarter | Orchestrator | Report | CID | Date filed | Status |
 | :-- | :-- | :-- | :-- | :-- | :-- |
-| — | *none yet* | — | — | — |  — |
+| Activation | FIL GTM LLC | [Activation Report](quarterly-reports/FIL%20GTM%20Activation%20Report.md) | `bafkreidecvssit5mecekt3vriwlehje57f2bweyetp7ecm4ehipg7oy46u` | 2026-10-16 | Filed |
 
 ---
 
