@@ -2,7 +2,7 @@
 
 > Part of the [Solstice Governance Repository](../README.md). This page is the chronological record of every change to the Solstice program rules — what changed, why, the community issue that raised it, and the resulting FIP (for rule/code changes) or pull request (for repository changes).
 >
-> The Change Log records every permanent change to this repository, in two categories: (a) governance-tier actions (SRA and SWA) and their associated FIPs, PRs, and network-upgrade announcements; and (b) amendments to the repository's own content — Quarterly Orchestrator Report template and examples, admission rubric, parameters, and any section text.
+> **The Change Log records every permanent change to this repository, starting from the Nv29 upgrade epoch**. Those changes are split in two categories: (a) governance-tier actions (SRA and SWA) and their associated FIPs, PRs, and network-upgrade announcements; and (b) amendments to the repository's own content — Quarterly Orchestrator Report template and examples, admission rubric, parameters, and any section text.
 >
 > Both categories are made by pull request with public review, and recorded here. This is the process referred to from the README, §2.3, §3.2 and §4.2.
 
