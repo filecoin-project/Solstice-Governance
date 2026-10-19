@@ -48,8 +48,6 @@ Policies 5 and 8 restate FIP-0118 text. Policy 3 restates the uniqueness sentenc
 >
 > "No address in the registry may participate in either contract governance tier, as a governance multisig or as a key holder within one: a party that set weights could raise its own share, and one that ran the registry could admit itself or block competitors."
 
-Entity-level affiliation is a repository disclosure in [§2.1.1](02-solstice-program-governance.md#211-standards-for-a-governance-safe-multisig-wallet-both-tiers). It does not change Policy 8.
-
 ## 3.2 Orchestrators Tasks and Actions
 
 > These are operational tasks and actions; each is a collapsible dropdown. Changes to them follow the process in [§6.1](06-changelog.md#61-how-changes-are-classified).
