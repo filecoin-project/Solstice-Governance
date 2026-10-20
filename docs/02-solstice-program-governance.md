@@ -4,13 +4,13 @@
 >
 > Quotations of FIP-0118 in this repository are copied from commit [`23b42964890590a49c9cbc6e19a7e9e361d1f8a0`](https://github.com/filecoin-project/FIPs/blob/23b42964890590a49c9cbc6e19a7e9e361d1f8a0/FIPS/fip-0118.md). 
 
-This section consolidates the operating manual for the two governance tiers: the standards behind each Safe, the tasks and actions each tier performs, the registry of admitted Orchestrators, the program parameters, and the safety and rotation playbook.
+This section consolidates the operating manual for the two governance tiers: the standards behind each Safe, the tasks and actions each tier performs, the program parameters, and the safety and rotation playbook. The registry of admitted Orchestrators is a separate page, [§7](07-orchestrator-registry.md).
 
 **Contents**
 
 - [2.1 Governance Tiers and Safes](#21-governance-tiers-and-safes)
 - [2.2 SWA Governance Tier — Tasks and Actions](#22-swa-governance-tier--tasks-and-actions)
-- [2.3 SRA Governance Tier — Tasks and Actions](#23-sra-governance-tier--tasks-and-actions) (including the Orchestrator Registry at 2.3.12)
+- [2.3 SRA Governance Tier — Tasks and Actions](#23-sra-governance-tier--tasks-and-actions)
 - [2.4 Parameters](#24-parameters)
 - [2.5 Safety and rotation playbook (both tiers)](#25-safety-and-rotation-playbook-both-tiers)
 
@@ -206,7 +206,7 @@ During every `SWA_TIMELOCK`, monitor the f02 queue and objections under [§2.2.8
 
 ## 2.3 SRA Governance Tier — Tasks and Actions
 
-> **How to read this subsection:** every individual action below is a collapsible dropdown. Click an action's title to expand only the one you care about. The [Orchestrator Registry](#2312-orchestrator-registry-admitted-orchestrators) sits at the bottom (2.3.12).
+> **How to read this subsection:** every individual action below is a collapsible dropdown. Click an action's title to expand only the one you care about. The registry of admitted Orchestrators has its own page: [§7 Orchestrator Registry](07-orchestrator-registry.md).
 
 SRA Governance is **Tier 2**: it governs the Service Rewards Actor (SRA) — the orchestrator registry and the split within the service stream. FIP-0118 fixes its discretionary powers; registry changes require no per-change FIP except a code upgrade:
 
@@ -219,13 +219,13 @@ Registry changes need both Registry Safes but need no per-change FIP (the one ex
 > 1. Trigger and diligence (application, dispute outcome, audit finding, rotation request, or list update).
 > 2. Both Registry Safes approve the relevant call. The first Safe's transaction only records its approval (`UnanimousGovernance`); the action body runs in the second Safe's transaction, so the second Safe MUST dry-run the calldata before approving. It signs only if a dry-run simulation of **its own** approval succeeds, and notes the simulation result on the task-register issue. On a simulated revert (wrong wallet, closed window, pending shares), either Safe `veto`s and the action is resubmitted.
 > 3. The change binds when the second SRA Safe approves (no pending queue, no cancellation path). Record it in the [Program Change Log](06-changelog.md) per [§6.1](06-changelog.md#61-how-changes-are-classified).> 4. Both Registry Safes can see the submitted task. The `Submitted` event carries the `taskId`, not the full content; the issue carries the content.
-> 5. Record the outcome in the issue/repository, and update the [Orchestrator Registry](#2312-orchestrator-registry-admitted-orchestrators) where the change affects an Orchestrator's status.
+> 5. Record the outcome in the issue/repository, and update the [Orchestrator Registry](07-orchestrator-registry.md#71-admitted-orchestrators) where the change affects an Orchestrator's status.
 
 The recomputation is deterministic: any observer running the reference indexer over the same settlement events and registry state reaches the same figure.
 
 ### Admission (Phase 1: discretionary)
 
-An Orchestrator's application is filed as an issue in this repository. If application is approved, SRA Governance executes the admit on-chain (action 2.3.1). **Every admitted Orchestrator is recorded in the [Orchestrator Registry (2.3.12)](#2312-orchestrator-registry-admitted-orchestrators).**
+An Orchestrator's application is filed as an issue in this repository. If application is approved, SRA Governance executes the admit on-chain (action 2.3.1). **Every admitted Orchestrator is recorded in the [Orchestrator Registry](07-orchestrator-registry.md#71-admitted-orchestrators).** The Orchestrator seated at activation is not admitted through an Admit action; see [§7.4](07-orchestrator-registry.md#74-the-orchestrator-seated-at-activation).
 
 Phase 1 admission is discretionary (FIP-0118 §4.3). 
 A uniqueness rule is fixed by the FIP:
@@ -243,7 +243,7 @@ For Phase 2 (subject to a future FIP): admission becomes permissionless, enabled
 2. Resolve the payout wallet to an actor ID. It must exist, and it must not be a payment channel. f02 rejects payment-channel recipients on `SetShares` and `ReplaceAddress` (FIP-0118 §2.4.4). Record the actor code on the issue. A payment-channel wallet can still break `SubmitShares` for every Orchestrator; see §2.3.3.
 3. Both Registry Safes approve `AddOrchestrator(orch, wallet)` using the task-register issue’s canonical calldata; the uniqueness rule reverts any pair already bound elsewhere.
 4. Either Safe may `veto(taskId)` while the task is half-approved. Once both have approved, the admission is not cancellable.
-5. Binds and applies at once: the Orchestrator may register pairs and post from the admission epoch (FIP-0118 §3.2). Record it in the issue **and add the Orchestrator to the [Orchestrator Registry (2.3.12)](#2312-orchestrator-registry-admitted-orchestrators)**.
+5. Binds and applies at once: the Orchestrator may register pairs and post from the admission epoch (FIP-0118 §3.2). Record it in the issue **and add the Orchestrator to the [Orchestrator Registry](07-orchestrator-registry.md#71-admitted-orchestrators)**.
 
 </details>
 
@@ -384,38 +384,6 @@ A closed quarter is out of reach either way. `inherit = true` is honored only wh
 The task-register issue states the chain id, the pair, the new Orchestrator, the `inherit` value, why that row of the table applies, the canonical calldata, and the expected `taskId`, before the first approval. Record the written reason on the issue.
 
 </details>
-
-### 2.3.12 Orchestrator Registry (admitted Orchestrators)
-
-This is the canonical, human-readable list of Orchestrators admitted to the Solstice program. It is maintained by SRA Governance and mirrors on-chain SRA registry state — **the on-chain registry is the source of truth**; this list is a convenience view and audit trail. Entries are added and updated only through the SRA registry actions above: an Orchestrator appears on Admit (2.3.1), has its wallet updated on Replace (2.3.3), and is marked *Removed* on Remove (2.3.2).
-
-**Initial Orchestrator at activation.** FIP-0118 seats an Orchestrator at activation and requires it to “publish a disclosure on activation, following the requirements in the governance repository set for any other Orchestrator.” That disclosure is on activation, not within 7 days of an `AddOrchestrator` admission ([§3.1, Policy 6](03-orchestrator-operational-guidelines.md#31-policies)). That Orchestrator is not admitted through an Admit action (2.3.1). On activation it publishes the same declaration file required of any other Orchestrator, and SRA Governance sets its registry row below to **Active** with admission = quarter 1 (identity and payout wallet `0x97A90f5696be5E3C8d3752C92Adac287c2b4484e`, matching `initialOrchestrator` / `initialOrchestratorWallet` in [`deployments.json`](https://github.com/filecoin-project/solstice/blob/main/deployments.json)).
-
-The row below is chain id **314** (Filecoin mainnet). As of solstice `deployments.json` commit `b9a63a87b5adee272c16d7e507cc9c127fb34f0f`, the same address is `initialOrchestrator` and `initialOrchestratorWallet` on calibnet (chain id 314159). A mainnet action names chain id 314. The same address string is not a check that the signer is on mainnet.
-
-Removing the sole admitted Orchestrator burns the whole service stream from the epoch the removal binds until a later `SubmitShares` with eligible volume (FIP-0118, Security Considerations). That is the launch configuration.
-
-**Status legend**
-
-| Status | Meaning |
-| :-- | :-- |
-| **Active** | Admitted and operating; can `RegisterPairs`/`PostVolume`; FPV counts toward `SplitRule` and `AggregatedFPV`. |
-| **Removed** | Permanently removed; (payer, operator) bindings released for re-registration (2.3.2). |
-
-**Admitted Orchestrators**
-
-> **Program status:** the activation seat is recorded below; further Orchestrators appear when SRA Governance executes an `Admit` action (2.3.1). The table shows the columns each entry must carry.
-
-| # | Orchestrator | Identity (`orch`) | Payout wallet | Status | Admitted (quarter / epoch) | Declaration | Registered (payer, operator) pairs |
-| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
-| 1 | Initial (activation seat) | 0x97A90f5696be5E3C8d3752C92Adac287c2b4484e | 0x97A90f5696be5E3C8d3752C92Adac287c2b4484e | Active | quarter 1 | [Activation Report](quarterly-reports/FIL%20GTM%20Activation%20Report.md) | (0x5B27DbC6efeFbb5Ba8106fB19433048D60D6878F, 0xefA4ddBCe66B86B821A5A4238552b6F94C61d3fe) |
-
-**Per-Orchestrator entry template**
-
-When admitting an Orchestrator, add a row to the table above and a detailed entry using this template:
-**Per-Orchestrator entry template.** This block is the definitive list of declaration fields; [§3.1 Policy 6](03-orchestrator-operational-guidelines.md#31-policies) and [§3.2.4](03-orchestrator-operational-guidelines.md#32-orchestrators-tasks-and-actions) describe the duty, not the field list.
-
-> Field definitions follow the Orchestrator guidelines: identity and payout wallet in [§3.2](03-orchestrator-operational-guidelines.md#32-orchestrators-tasks-and-actions), the declaration file in [§3.1, Policy 6](03-orchestrator-operational-guidelines.md#31-policies), and the (payer, operator) binding rules in [§3.1, Policy 3](03-orchestrator-operational-guidelines.md#31-policies) (FIP-fixed uniqueness).
 
 ---
 
