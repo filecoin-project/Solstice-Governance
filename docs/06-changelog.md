@@ -31,6 +31,16 @@ Each entry should link: (a) the **community issue / discussion** that raised the
 | 2026 (pending) | Establishment of the Solstice program and this governance repository; deprecation of Filecoin Plus. | FIP + Network upgrade | [FIP-0118 discussion](https://github.com/filecoin-project/FIPs/discussions/1249) | [FIP-0118](https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0118.md) | Initial repository | Draft |
 
 
+### 2026-10-20 — Orchestrator Registry moved to its own page
+
+- **Type:** Repository (PR)
+- **Summary:** The Orchestrator Registry moved from §2.3.12 of the Program Governance page to its own page, [§7](07-orchestrator-registry.md), so that it can be linked to directly. No registry entry, status, or procedure changed. The per-Orchestrator entry template, which had been lost from §2.3.12, is restored in §7.3. §2.3 keeps pointers to the new page from the standard registry-change flow and from Admit (2.3.1). Actions 2.3.1–2.3.11 are unchanged and not renumbered.
+- **Community issue / discussion:** Review feedback, 20 October 2026.
+- **FIP:** n/a. No FIP text is amended.
+- **PR / commit:** <fill in>
+- **Affected sections:** README §1.2, §2.3, §2.3.12 (removed), §3.2.2, §3.2.4, §3.3, §6.2, new §7
+- **Status:** Accepted
+
 ## 2026-10-14 — FIP-0118 procedure and quotation fixes
 
 - **Type:** Repository (PR)
