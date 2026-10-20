@@ -1,4 +1,4 @@
-# Solstice Governance Repository
+# Solstice Governance Repository (Calibnet)
 ## 1.1 Purpose
 
 This repository is the operational layer of the governance defined in the Solstice FIP. The FIP fixes what is enforced: the two governance tiers and their powers, the change lifecycle, and the invariants the threat model relies on. This repository holds how those tiers operate: addresses for each governance Safe, the procedures for verification, rotation, disputes, and the parameters designed to iterate without a FIP.
