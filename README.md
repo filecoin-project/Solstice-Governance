@@ -11,11 +11,12 @@ Each section below is a separate page, ordered by its number, so a reader intere
 | Section | Repository file | Covers |
 | :-- | :-- | :-- |
 | 1. README | [`README.md`](README.md) | Purpose, references, section map |
-| 2. Solstice Program Governance | [`docs/02-solstice-program-governance.md`](docs/02-solstice-program-governance.md) | Governance tiers & Safes · SWA tier · SRA tier (+ Orchestrator Registry) · Parameters · Safety and rotation playbook |
+| 2. Solstice Program Governance | [`docs/02-solstice-program-governance.md`](docs/02-solstice-program-governance.md) | Governance tiers & Safes · SWA tier · SRA tier · Parameters · Safety and rotation playbook |
 | 3. Orchestrator Operational Guidelines | [`docs/03-orchestrator-operational-guidelines.md`](docs/03-orchestrator-operational-guidelines.md) | Orchestrator guidelines · policies · tasks · monitoring |
 | 4. Quarterly Review and Runbook | [`docs/04-quarterly-review-and-runbook.md`](docs/04-quarterly-review-and-runbook.md) | Quarterly community reporting duty · report template · example · declaration, verification & escalation |
 | 5. Reports | [`docs/05-quarterly-reports.md`](docs/05-quarterly-reports.md) | Archive/history of filed quarterly reports (one page per report) |
 | 6. Program Change Log | [`docs/06-changelog.md`](docs/06-changelog.md) | Rule-change history with community issues & FIP links |
+| 7. Orchestrator Registry | [`docs/07-orchestrator-registry.md`](docs/07-orchestrator-registry.md) | Canonical list of admitted Orchestrators · status legend · entry template · the activation seat |
 
 ### Contains key documentation including:
 - Tasks and actions for each ecosystem actor, inclusive of the operational guidelines for each role, removal criteria for Orchestrators, and the admission rubric once agreed.
@@ -25,7 +26,8 @@ Each section below is a separate page, ordered by its number, so a reader intere
 - Pointers to the FIP-fixed durations of `POST_PERIOD`, `VERIFICATION_WINDOW`, `SRA_UPGRADE_HOLD` and `EPOCHS_PER_QUARTER` (not edited here; changed only by an SRA code upgrade).
 - [The contract upgrade runbook](https://github.com/filecoin-project/solstice/blob/main/docs/UPGRADE.md) in the [solstice](https://github.com/filecoin-project/solstice) repository. Upgrades are driven by engineers at the request of governance (an accepted FIP, approved by both tiers' Safes), and the runbook stays next to the scripts and workflows it depends on so they are reviewed together.
 - The wallet addresses for each tier's Safes.
-- Issue templates, application forms, and workflow automation (planned; not yet in the repository).
+- Issue templates, application forms, and workflow automation.
+- The [registry of admitted Orchestrators](docs/07-orchestrator-registry.md) and the [change log of program-rule updates](docs/06-changelog.md).
   
 ## 1.3 Changing this repository
 
