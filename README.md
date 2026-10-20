@@ -20,7 +20,7 @@ Each section below is a separate page, ordered by its number, so a reader intere
 
 ### Contains key documentation including:
 - Tasks and actions for each ecosystem actor, inclusive of the operational guidelines for each role, removal criteria for Orchestrators, and the admission rubric once agreed.
-- Measurement-rule declarations for each Orchestrator, published here as Orchestrators are admitted.- The registry of admitted Orchestrators and the change log of program-rule updates.
+- Measurement-rule declarations for each Orchestrator, published here as Orchestrators are admitted.
 - The dispute procedure for contested bindings, and the verification playbook.
 - The versioned reference indexer that recomputes FPV from public settlement events. FIP-0118 §2.2 highlights that a versioned reference implementation is maintained here, and that the FIP text is the normative algorithm.
 - Pointers to the FIP-fixed durations of `POST_PERIOD`, `VERIFICATION_WINDOW`, `SRA_UPGRADE_HOLD` and `EPOCHS_PER_QUARTER` (not edited here; changed only by an SRA code upgrade).
