@@ -172,9 +172,9 @@ The call reverts unless the caller holds the binding. State the chain id in any 
 
 These tools are meant to ease the monitoring of the program's activity. Orchestrators use them to check their recomputed FPV against what they posted; SRA Governance and any community observer run the same tools for oversight. Every verification action and its conclusion must be reproducible from these public sources.
 
-- Versioned reference indexer: not yet published. Until it is, the normative algorithm is FIP-0118 §2.2 at the commit pinned in the [README](../README.md). 
+- Versioned reference indexer: [fidlabs/fpv-indexer](https://github.com/fidlabs/fpv-indexer). Until a release is pinned here per FIP-0118 §2.2, the FIP text at the commit pinned in the [README](../README.md) is the normative algorithm.
 - Governance & signing interface: *(links to be added)* 
-- Settlement data and dashboards: *(links to be added)*
+- Settlement data and dashboards: see [fidlabs/fpv-indexer public instances](https://github.com/fidlabs/fpv-indexer#public-instances) for calibnet/mainnet URLs
 - Registry state and admitted Orchestrators: see the [Orchestrator Registry](02-solstice-program-governance.md#2312-orchestrator-registry-admitted-orchestrators). The admitted-stablecoin whitelist and the admitted Filecoin Pay addresses are the latest `SetAdmittedLists` event that applies to the quarter, not the registry table. *(on-chain links to be added)*
 - Filecoin Pay contracts: *(links to be added)*
 
@@ -323,8 +323,8 @@ Complete when taking on a new payer/operator relationship. Counting follows [Pol
 
 | Tool / Resource                       | Status  |
 | ------------------------------------- | ------- |
-| Reference FPV indexer                 | **TBD** |
-| Settlement data / dashboard           | **TBD** |
+| Reference FPV indexer                 | [fidlabs/fpv-indexer](https://github.com/fidlabs/fpv-indexer); not yet pinned to a release per FIP-0118 §2.2 |
+| Settlement data / dashboard           | see [fidlabs/fpv-indexer public instances](https://github.com/fidlabs/fpv-indexer#public-instances) |
 | Filecoin Pay contract reference links | **TBD** |
 | Final admitted stablecoin whitelist   | axlUSDC and USDFC — the authoritative record is the latest `SetAdmittedLists` event, applied from the next quarter |
 ---
