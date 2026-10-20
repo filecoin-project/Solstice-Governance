@@ -100,4 +100,4 @@ Prepend new entries to the table above (most-recent first). For a fuller record,
 
 ---
 
-← Previous: [5. Quarterly Reports](05-quarterly-reports.md) · [Back to README](../README.md)
+← Previous: [5. Quarterly Reports](05-quarterly-reports.md) · [Back to README](../README.md) · Next: [7. Orchestrator Registry](07-orchestrator-registry.md) →
