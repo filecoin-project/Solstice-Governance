@@ -11,7 +11,7 @@ This section is the runbook for the quarterly review: the community reporting an
 - [4.3 Example](#43-example)
 - [4.4 Declaration, verification and escalation](#44-declaration-verification-and-escalation)
 
-## 4.1 Reporting and Disclosure
+## 4.1 Community Reporting and Disclosure
 
 **Every admitted Orchestrator files a Quarterly Orchestrator Report, from the beginning of their first quarter of operation, using the template in [§4.2](#42-quarterly-report-template). Failure to file is a removal trigger and forfeits re-admission for the following quarter.**
 
