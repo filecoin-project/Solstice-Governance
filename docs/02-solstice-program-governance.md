@@ -408,7 +408,7 @@ Removing the sole admitted Orchestrator burns the whole service stream from the 
 
 | # | Orchestrator | Identity (`orch`) | Payout wallet | Status | Admitted (quarter / epoch) | Declaration | Registered (payer, operator) pairs |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
-| 1 | Initial (activation seat) | 0x97A90f5696be5E3C8d3752C92Adac287c2b4484e | 0x97A90f5696be5E3C8d3752C92Adac287c2b4484e | Active | quarter 1 | TBD (Policy 6 declaration on activation) | — |
+| 1 | Initial (activation seat) | 0x97A90f5696be5E3C8d3752C92Adac287c2b4484e | 0x97A90f5696be5E3C8d3752C92Adac287c2b4484e | Active | quarter 1 | [Activation Report](quarterly-reports/FIL%20GTM%20Activation%20Report.md) | (0x5B27DbC6efeFbb5Ba8106fB19433048D60D6878F, 0xefA4ddBCe66B86B821A5A4238552b6F94C61d3fe) |
 
 **Per-Orchestrator entry template**
 
