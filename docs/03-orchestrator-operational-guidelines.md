@@ -170,10 +170,11 @@ The call reverts unless the caller holds the binding. State the chain id in any 
 
 These tools are meant to ease the monitoring of the program's activity. Orchestrators use them to check their recomputed FPV against what they posted; SRA Governance and any community observer run the same tools for oversight. Every verification action and its conclusion must be reproducible from these public sources.
 
-- Versioned reference indexer: [fidlabs/fpv-indexer](https://github.com/fidlabs/fpv-indexer).
 - Settlement data and dashboards: see [fidlabs/fpv-indexer public instances](https://github.com/fidlabs/fpv-indexer#public-instances) for calibnet/mainnet URLs
-- Registry state and admitted Orchestrators: see the [Orchestrator Registry](07-orchestrator-registry.md). The admitted-stablecoin whitelist and the admitted Filecoin Pay addresses are the latest `SetAdmittedLists` event that applies to the quarter, not the registry table. 
-- Filecoin Pay contracts: *(links to be added)*
+- Registry state and admitted Orchestrators: see the [Orchestrator Registry](07-orchestrator-registry.md). The admitted-stablecoin whitelist and the admitted Filecoin Pay addresses are the latest `SetAdmittedLists` event that applies to the quarter, not the registry table.
+- Versioned reference indexer: [fidlabs/fpv-indexer](https://github.com/fidlabs/fpv-indexer).
+
+A reference-indexer version is cited as a release tag or a commit hash of [fidlabs/fpv-indexer](https://github.com/fidlabs/fpv-indexer). Reports and recomputations state the version used, so a reader can re-run the same code over the same events and reach the same figure.
 
 ## 3.4 Solstice Orchestrator Task Checklist
 Use this checklist to track completion of the core Solstice Orchestrator responsibilities.
@@ -266,7 +267,7 @@ Complete when taking on a new payer/operator relationship. Counting follows [Pol
 | Done | Task                                                     | Timing               | Reference                                                                                                                                   |
 | ---- | -------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | [ ]  | Confirm verification window is open                      | Verification window  | [Timing Parameters](https://github.com/filecoin-project/Solstice-Governance/blob/main/docs/02-solstice-program-governance.md#24-parameters) |
-| [ ]  | Recompute FPV using the reference indexer when available | Verification window  | [Verification Runbook](https://github.com/filecoin-project/Solstice-Governance/blob/main/docs/04-quarterly-review-and-runbook.md)           |
+| [ ]  | Recompute FPV using the [reference indexer](https://github.com/fidlabs/fpv-indexer) | Verification window  | [Verification Runbook](https://github.com/filecoin-project/Solstice-Governance/blob/main/docs/04-quarterly-review-and-runbook.md) |
 | [ ]  | Compare recomputed FPV against posted FPV                | Verification window  | [Verification Runbook](https://github.com/filecoin-project/Solstice-Governance/blob/main/docs/04-quarterly-review-and-runbook.md)           |
 | [ ]  | Review registered-pair state used in calculation         | Verification window  | [Verification Runbook](https://github.com/filecoin-project/Solstice-Governance/blob/main/docs/04-quarterly-review-and-runbook.md)           |
 | [ ]  | Review FIL conversion calculations where applicable      | Verification window  | [Verification Runbook](https://github.com/filecoin-project/Solstice-Governance/blob/main/docs/04-quarterly-review-and-runbook.md)           |
