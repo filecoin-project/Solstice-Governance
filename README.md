@@ -22,7 +22,7 @@ Each section below is a separate page, ordered by its number, so a reader intere
 - Tasks and actions for each ecosystem actor, inclusive of the operational guidelines for each role, removal criteria for Orchestrators, and the admission rubric once agreed.
 - Measurement-rule declarations for each Orchestrator, published here as Orchestrators are admitted.
 - The dispute procedure for contested bindings, and the verification playbook.
-- The versioned reference indexer that recomputes FPV from public settlement events. FIP-0118 §2.2 highlights that a versioned reference implementation is maintained here, and that the FIP text is the normative algorithm.
+- A pointer to the [versioned reference indexer](https://github.com/fidlabs/fpv-indexer) that recomputes FPV from public settlement events. The indexer is maintained in its own repository; FIP-0118 §2.2 remains the normative specification of the algorithm.
 - Pointers to the FIP-fixed durations of `POST_PERIOD`, `VERIFICATION_WINDOW`, `SRA_UPGRADE_HOLD` and `EPOCHS_PER_QUARTER` (not edited here; changed only by an SRA code upgrade).
 - [The contract upgrade runbook](https://github.com/filecoin-project/solstice/blob/main/docs/UPGRADE.md) in the [solstice](https://github.com/filecoin-project/solstice) repository. Upgrades are driven by engineers at the request of governance (an accepted FIP, approved by both tiers' Safes), and the runbook stays next to the scripts and workflows it depends on so they are reviewed together.
 - The wallet addresses for each tier's Safes.
