@@ -31,6 +31,16 @@ Each entry should link: (a) the **community issue / discussion** that raised the
 | 2026 (pending) | Establishment of the Solstice program and this governance repository; deprecation of Filecoin Plus. | FIP + Network upgrade | [FIP-0118 discussion](https://github.com/filecoin-project/FIPs/discussions/1249) | [FIP-0118](https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0118.md) | Initial repository | Draft |
 
 
+### 2026-10-21 — Reference FPV indexer published
+
+- **Type:** Repository (PR)
+- **Summary:** The versioned reference indexer is published at [fidlabs/fpv-indexer](https://github.com/fidlabs/fpv-indexer). Links replace the "not yet published" placeholders in §3.3 and §3.4.8, and the conditional fallback to the pinned FIP text is removed from §2.3.4, §2.3.10 and §4.4.1(a). The README's quotation pin is retained, narrowed to quotations only. §3.3 now states how an indexer version is cited.
+- **Community issue / discussion:** [#22](https://github.com/filecoin-project/Solstice-Governance/pull/22)
+- **FIP:** n/a. No FIP text is amended.
+- **PR / commit:** n/a
+- **Affected sections:** README §1.2 and §1.4, §2.3.4, §2.3.10, §3.3, §3.4.5, §3.4.8, §4.4.1
+- **Status:** Accepted
+
 ### 2026-10-20 — Orchestrator Registry moved to its own page
 
 - **Type:** Repository (PR)
