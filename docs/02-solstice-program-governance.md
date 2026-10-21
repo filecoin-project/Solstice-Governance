@@ -287,7 +287,7 @@ A later return, where one is allowed, is a fresh `AddOrchestrator` with a fresh 
 
 > **Requires:** both SRA Safes (jointly) · **Hold:** none; bounded by the verification window · **Enforced by:** SRA · **Cancel:** not cancellable
 
-1. Recompute every admitted Orchestrator's `FPV_i(Q)`, posted or not, from public settlement events and registry state. Use the versioned reference indexer when it is published. Until then, the normative algorithm is FIP-0118 §2.2 at the commit pinned in the [README](../README.md). This recomputation is an SRA duty every quarter. It is not triggered only by a dispute (FIP-0118 §2.2 and Security Considerations).
+1. Recompute every admitted Orchestrator's `FPV_i(Q)`, posted or not, from public settlement events and registry state, using the versioned reference indexer ([fidlabs/fpv-indexer](https://github.com/fidlabs/fpv-indexer)) at the version recorded on the task-register issue. This recomputation is an SRA duty every quarter.
 2. Publish the recomputation on the task-register issue before either Safe approves: chain id, indexer version or the pinned FIP commit, the settlement and registry events, and the blocks covered. 
 3. During the verification window, both Safes jointly call `CorrectVolume(orch, Q, value)` to replace a misreport or supply a figure for a non-poster. A value neither posted nor supplied binds at zero (conservative under-count). The issue carries the canonical calldata and the expected `taskId` before the first approval. An upward correction, or a figure supplied for an Orchestrator that did not post, uses the same publication and states why the figure is the recomputed value. The FIP allows both directions. 
 4. **One Safe can block a correction.** `CorrectVolume` needs both Registry Safes. The window check runs in the function body after approvals are stored (`ServiceRewardsActor.correctVolume`), so a second approval after the window closes reverts and the first approval stays. Aim for both approvals by day 5 of the 7-day mainnet window (scale the same fraction on calibnet). That aim is not a protocol deadline. 
@@ -358,7 +358,7 @@ Duty: confirm `SubmitShares` has run and wrote the correct wallet-to-share map (
 <details>
 <summary><strong>2.3.10 — Continuous upkeep</strong></summary>
 
-Maintain and version the reference indexer; monitor anomaly reports, contested bindings, and the cancellation queue; keep Safe rosters, disclosures, and the Orchestrator Registry current. The reference indexer is not yet published. Until it is, recomputation follows the FIP text pinned in the [README](../README.md). 
+Monitor anomaly reports, contested bindings, and the cancellation queue; keep Safe rosters, disclosures, and the Orchestrator Registry current. The reference indexer is [fidlabs/fpv-indexer](https://github.com/fidlabs/fpv-indexer); record the version used for each quarter's recomputation on that quarter's issue.
 
 </details>
 
@@ -430,7 +430,7 @@ As of solstice `deployments.json` commit `b9a63a87b5adee272c16d7e507cc9c127fb34f
 | `MIN_LOT_ALPHA` | SRA parameter event (`SetPricingParams`); applies from the first epoch of the next quarter | 1/400 | Same |
 | `PRICE_BAND` | SRA parameter event (`SetPricingParams`); applies from the first epoch of the next quarter | 30% | Same |
 | `REGISTRATION_CUTOFF` | SRA parameter event (`SetPricingParams`); applies from the first epoch of the next quarter | 20,160 epochs (7 days) | Scale to the calibnet quarter before use |
-| Admitted-stablecoin whitelist and admitted Filecoin Pay contract addresses | Latest `SetAdmittedLists` event, which is the authoritative record. Applies from the first epoch of the next quarter. This repository only mirrors the event. | To be admitted. | To be admitted; not yet published. |
+| Admitted-stablecoin whitelist and admitted Filecoin Pay contract addresses | Latest `SetAdmittedLists` event, which is the authoritative record. Applies from the first epoch of the next quarter. This repository only mirrors the event. | To be admitted. | To be admitted |
 | Dispute resolution target ([§4.4.2](04-quarterly-review-and-runbook.md#442-dispute-resolution-for-contested-bindings)) | This repository | 7 days | 7 days |
 | SWA objection response-time commitment ([§2.2.8](#228--objection-during-an-swa-hold)) | This repository | 7 days | 7 days |
 | Orchestrator response window ([§4.4.5](04-quarterly-review-and-runbook.md#445-escalation)) | This repository | 7 days | 7 days |
