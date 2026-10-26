@@ -1,4 +1,4 @@
-# 6. Program Change Log
+# 7. Program Change Log
 
 > Part of the [Solstice Governance Repository](../README.md). This page is the chronological record of every change to the Solstice program rules — what changed, why, the community issue that raised it, and the resulting FIP (for rule/code changes) or pull request (for repository changes).
 >
@@ -8,7 +8,7 @@
 
 > **This section is the single definition of what counts as a change, how each type is enacted, and what must be recorded.** Other pages point here rather than restating it.
 
-## 6.1 How changes are classified
+## 7.1 How changes are classified
 
 Per [FIP-0118](https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0118.md) §4.4, there are three types of change; every entry below is tagged with one:
 
@@ -20,7 +20,7 @@ Per [FIP-0118](https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-011
 
 Each entry should link: (a) the **community issue / discussion** that raised the change, (b) the **FIP** if one was required, and/or (c) the **PR** that landed the repository edit.
 
-## 6.2 Change log
+## 7.2 Change log
 
 > **Entries are ordered most-recent first.** The log begins at program establishment (Nv29); further entries are appended as the program evolves.
 
@@ -30,6 +30,15 @@ Each entry should link: (a) the **community issue / discussion** that raised the
 | 2026-10-09 | Upgrade-runbook link; one Safe-replacement section (§2.5.3) for both tiers. | Repository (PR) | n/a | n/a | [#17](https://github.com/filecoin-project/Solstice-Governance/pull/17) `142926f3ff38ed10166725a95a1a73500c35af3a` | Accepted |
 | 2026 (pending) | Establishment of the Solstice program and this governance repository; deprecation of Filecoin Plus. | FIP + Network upgrade | [FIP-0118 discussion](https://github.com/filecoin-project/FIPs/discussions/1249) | [FIP-0118](https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0118.md) | Initial repository | Draft |
 
+### 2026-10-26 — Section renumbering
+
+- Type: Repository (PR)
+- Summary: Three pages renumbered so the registry sits next to the operational sections: Orchestrator Registry 7 → 5, Quarterly Reports 5 → 6, Program Change Log 6 → 7. Files renamed to match, internal headings and anchors updated, and every inbound link repointed across the README and sections 2, 3 and 4. No procedure, parameter, registry entry or FIP quotation changed.
+- Community issue / discussion: Review feedback, 26 October 2026.
+- FIP: n/a. No FIP text is amended.
+- PR / commit: <fill in>
+- Affected sections: README §1.2 and §1.3, §2 (intro, §2.3, §2.5.3), §3 (intro, §3.2, §3.2.2, §3.2.4, §3.3), §4 (intro, §4.1, §4.2, §4.4.5), and sections 5, 6, 7
+- Status: Accepted
 
 ### 2026-10-21 — Reference FPV indexer published
 
@@ -44,11 +53,11 @@ Each entry should link: (a) the **community issue / discussion** that raised the
 ### 2026-10-20 — Orchestrator Registry moved to its own page
 
 - **Type:** Repository (PR)
-- **Summary:** The Orchestrator Registry moved from §2.3.12 of the Program Governance page to its own page, [§7](07-orchestrator-registry.md), so that it can be linked to directly. No registry entry, status, or procedure changed. The per-Orchestrator entry template, which had been lost from §2.3.12, is restored in §7.3. §2.3 keeps pointers to the new page from the standard registry-change flow and from Admit (2.3.1). Actions 2.3.1–2.3.11 are unchanged and not renumbered.
+- **Summary:** The Orchestrator Registry moved from §2.3.12 of the Program Governance page to its own page, [§5](05-orchestrator-registry.md), so that it can be linked to directly. No registry entry, status, or procedure changed. The per-Orchestrator entry template, which had been lost from §2.3.12, is restored in §5.3. §2.3 keeps pointers to the new page from the standard registry-change flow and from Admit (2.3.1). Actions 2.3.1–2.3.11 are unchanged and not renumbered.
 - **Community issue / discussion:** Review feedback, 20 October 2026.
 - **FIP:** n/a. No FIP text is amended.
 - **PR / commit:** <fill in>
-- **Affected sections:** README §1.2, §2.3, §2.3.12 (removed), §3.2.2, §3.2.4, §3.3, §6.2, new §7
+- **Affected sections:** README §1.2, §2.3, §2.3.12 (removed), §3.2.2, §3.2.4, §3.3, §6.2, new §5
 - **Status:** Accepted
 
 ## 2026-10-14 — FIP-0118 procedure and quotation fixes
@@ -100,7 +109,7 @@ The §2.3.1 actor-code step recorded here was later dropped from the procedure i
 
 Doc-only correction (engineering review, September 2026): registry actions and cooperative `ReplaceOwner` bind without a hold; `POST_PERIOD` / `VERIFICATION_WINDOW` are FIP deployment-fixed; remove `FinalizeConversion`; clarify share-map no-op, filing-after-bind, pricing/gate parameter names, upgrade hold + `veto(taskId)`, SWA cancel paths, and Orchestrator identity vs payout wallet. No FIP or contract change.
 
-## 6.3 Entry template
+## 7.3 Entry template
 
 Prepend new entries to the table above (most-recent first). For a fuller record, add a dated subsection below using this template:
 
@@ -120,4 +129,4 @@ Prepend new entries to the table above (most-recent first). For a fuller record,
 
 ---
 
-← Previous: [5. Quarterly Reports](05-quarterly-reports.md) · [Back to README](../README.md) · Next: [7. Orchestrator Registry](07-orchestrator-registry.md) →
+← Previous: [6. Quarterly Reports](06-quarterly-reports.md) · [Back to README](../README.md)
