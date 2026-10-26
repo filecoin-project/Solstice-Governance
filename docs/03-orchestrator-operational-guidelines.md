@@ -13,7 +13,7 @@ This section consolidates what is expected of Orchestrators: the operational gui
 
 The service stream pays for measured, paid storage service. These rules give Orchestrators predictability about what is expected and what the consequences of a breach are, and give the network confidence that the number driving the gate and the shares reflects reality. The standing test for any action in the program: **does this volume represent a client paying for storage service on Filecoin?** If the answer is yes, the Orchestrator is operating within both the rules and their intent.
 
-Orchestrators are free to run their businesses autonomously. The program does not review their pricing, their client selection, or their operations. To maintain trust in the measurement layer, all Orchestrators are expected to adhere to the criteria below. These may be revised over time through the standard PR process (and logged in the [Program Change Log](06-changelog.md)).
+Orchestrators are free to run their businesses autonomously. The program does not review their pricing, their client selection, or their operations. To maintain trust in the measurement layer, all Orchestrators are expected to adhere to the criteria below. These may be revised over time through the standard PR process (and logged in the [Program Change Log](07-changelog.md)).
 
 - **Measurable settlement.** Orchestrators route paid storage service revenue through admitted Filecoin Pay contracts in admitted stablecoins or FIL, and help their clients settle the same way. Volume that bypasses admitted rails is invisible to the mechanism and counts for nothing.
 - **Responsiveness.** Orchestrators respond to dispute and verification requests within the response window (7 days) and keep their contact information in this repository current.
@@ -50,7 +50,7 @@ Policies 5 and 8 restate FIP-0118 text. Policy 3 restates the uniqueness sentenc
 
 ## 3.2 Orchestrators Tasks and Actions
 
-> These are operational tasks and actions; each is a collapsible dropdown. Changes to them follow the process in [§6.1](06-changelog.md#61-how-changes-are-classified).
+> These are operational tasks and actions; each is a collapsible dropdown. Changes to them follow the process in [§7.1](07-changelog.md#71-how-changes-are-classified).
 > <img width="1600" height="897" alt="image" src="https://github.com/user-attachments/assets/c1750749-9809-452d-9024-7fc904896188" />
 
 
@@ -73,7 +73,7 @@ Each Orchestrator has **two** on-chain addresses in the SRA registry (`AddOrches
 1. **Orchestrator identity (`orch`)** — calls `RegisterPairs` and `PostVolume`.
 2. **Payout wallet (`wallet`)** — receives the service-stream share from f02. Must not be a payment-channel actor; f02 rejects payment channels as share recipients. Prefer a multisig (e.g., a Safe) with hardware-key signers. If the payout wallet is a Safe or other f410 / EVM-contract address, also name an **f1 claim keeper** (see §3.2.4).
 
-They can differ. As part of admission (see [§2.3 SRA Governance Tier](02-solstice-program-governance.md#23-sra-governance-tier--tasks-and-actions)), record both addresses in your GitHub declaration. Your entry appears in the [Orchestrator Registry](07-orchestrator-registry.md#71-admitted-orchestrators) with both columns.
+They can differ. As part of admission (see [§2.3 SRA Governance Tier](02-solstice-program-governance.md#23-sra-governance-tier--tasks-and-actions)), record both addresses in your GitHub declaration. Your entry appears in the [Orchestrator Registry](05-orchestrator-registry.md#51-admitted-orchestrators) with both columns. with both columns.
 
 Rotate a compromised **payout** wallet by filing the public request in [§2.3.3](02-solstice-program-governance.md#233--replace--rotate-an-orchestrator-address-replacewallet). SRA Governance then calls `ReplaceWallet(old, new)`. Per FIP-0118 §3.2, that call runs only on a public request from the Orchestrator recorded in this repository, and it swaps the payout wallet through an immediate `ReplaceAddress`, so f02 pays the new wallet at once. The Orchestrator does not send the governance call. If the identity key is lost, the request cannot be filed and `ReplaceWallet` does not run.
 
@@ -103,7 +103,7 @@ Volume counts when it settles on an admitted Filecoin Pay contract, in an admitt
 
 1. Understand your figure: FPV_i(Q) is the value settled on your registered (payer, operator) rails during a given quarter; amounts are denominated in USD — admitted stablecoins at face value, FIL converted off-chain via the reference indexer using public fee-auction prints (`MIN_LOT`, `PRICE_BAND`).
 2. Declare how your volume is measured (your pairs, optional service-contract metadata, booked-revenue basis).
-3. Receiving service-stream payouts: f02 credits your **payout wallet** with its share of the service stream (w2) every epoch. Entitlements are withdrawn via the permissionless native `Claim` method. An f410 (including a Safe) or an EVM-contract wallet cannot send that call; an **f1 keeper account** must. Name the keeper in your declaration, using the field list in the [per-Orchestrator entry template](07-orchestrator-registry.md#73-per-orchestrator-entry-template). Prefer keeping the Safe as the payout wallet for custody and using the f1 only to `Claim`.
+3. Receiving service-stream payouts: f02 credits your **payout wallet** with its share of the service stream (w2) every epoch. Entitlements are withdrawn via the permissionless native `Claim` method. An f410 (including a Safe) or an EVM-contract wallet cannot send that call; an **f1 keeper account** must. Name the keeper in your declaration, using the field list in the [per-Orchestrator entry template](05-orchestrator-registry.md#53-per-orchestrator-entry-template). Prefer keeping the Safe as the payout wallet for custody and using the f1 only to `Claim`.
 
 The following rule establishes how the share is set: `SplitRule` = your bound FPV_i(Q) ÷ AggregatedFPV(Q), written into f02 once per quarter via `SetShares`.
 
@@ -171,7 +171,7 @@ The call reverts unless the caller holds the binding. State the chain id in any 
 These tools are meant to ease the monitoring of the program's activity. Orchestrators use them to check their recomputed FPV against what they posted; SRA Governance and any community observer run the same tools for oversight. Every verification action and its conclusion must be reproducible from these public sources.
 
 - Settlement data and dashboards: see [fidlabs/fpv-indexer public instances](https://github.com/fidlabs/fpv-indexer#public-instances) for calibnet/mainnet URLs
-- Registry state and admitted Orchestrators: see the [Orchestrator Registry](07-orchestrator-registry.md). The admitted-stablecoin whitelist and the admitted Filecoin Pay addresses are the latest `SetAdmittedLists` event that applies to the quarter, not the registry table.
+- Registry state and admitted Orchestrators: see the [Orchestrator Registry](05-orchestrator-registry.md). The admitted-stablecoin whitelist and the admitted Filecoin Pay addresses are the latest `SetAdmittedLists` event that applies to the quarter, not the registry table.
 - Versioned reference indexer: [fidlabs/fpv-indexer](https://github.com/fidlabs/fpv-indexer).
 
 A reference-indexer version is cited as a release tag or a commit hash of [fidlabs/fpv-indexer](https://github.com/fidlabs/fpv-indexer). Reports and recomputations state the version used, so a reader can re-run the same code over the same events and reach the same figure.
