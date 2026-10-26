@@ -4,7 +4,7 @@
 >
 > Quotations of FIP-0118 in this repository are copied from commit [`23b42964890590a49c9cbc6e19a7e9e361d1f8a0`](https://github.com/filecoin-project/FIPs/blob/23b42964890590a49c9cbc6e19a7e9e361d1f8a0/FIPS/fip-0118.md). 
 
-This section consolidates the operating manual for the two governance tiers: the standards behind each Safe, the tasks and actions each tier performs, the program parameters, and the safety and rotation playbook. The registry of admitted Orchestrators is a separate page, [§7](07-orchestrator-registry.md).
+This section consolidates the operating manual for the two governance tiers: the standards behind each Safe, the tasks and actions each tier performs, the program parameters, and the safety and rotation playbook. The registry of admitted Orchestrators is a separate page, [§5](05-orchestrator-registry.md).
 
 **Contents**
 
@@ -89,7 +89,7 @@ SWA Governance approves nothing routine: the w1 ramp and the volume gate are mec
 > 3. Both SWA Safes approve `ProposeWrite(write)`. The first Safe’s transaction only records its approval (`UnanimousGovernance`); the action body runs in the second Safe’s transaction. The second Safe signs only if a dry-run simulation of **its own** approval succeeds, and notes the simulation result on the task-register issue. On a simulated revert, either Safe `veto`s and the action is resubmitted (a failed second approval leaves the task half-approved and burns the signature round).
 > 4. The SWA relays to f02; f02 queues it with an `effective_epoch` and holds it for `SWA_TIMELOCK` (7 days).
 > 5. Objection window: the queued write is public. Monitor objections filed under [§2.2.8](#228--objection-during-an-swa-hold). Either SWA Safe may `CancelPending` / `CancelPendingWeight` / `veto(taskId)` (as applies) on a mismatch with the accepted FIP, a missing FIP, or new information that surfaced after acceptance. Absent a cancellation it binds at `effective_epoch`.
-> 6. Record the outcome in this repository and in the [Program Change Log](06-changelog.md).
+> 6. Record the outcome in this repository and in the [Program Change Log](07-changelog.md).
 
 The L1 envelope check restates a FIP invariant:
 
@@ -206,7 +206,7 @@ During every `SWA_TIMELOCK`, monitor the f02 queue and objections under [§2.2.8
 
 ## 2.3 SRA Governance Tier — Tasks and Actions
 
-> **How to read this subsection:** every individual action below is a collapsible dropdown. Click an action's title to expand only the one you care about. The registry of admitted Orchestrators has its own page: [§7 Orchestrator Registry](07-orchestrator-registry.md).
+> **How to read this subsection:** every individual action below is a collapsible dropdown. Click an action's title to expand only the one you care about. The registry of admitted Orchestrators has its own page: [§5 Orchestrator Registry](05-orchestrator-registry.md).
 
 SRA Governance is **Tier 2**: it governs the Service Rewards Actor (SRA) — the orchestrator registry and the split within the service stream. FIP-0118 fixes its discretionary powers; registry changes require no per-change FIP except a code upgrade:
 
@@ -218,14 +218,14 @@ Registry changes need both Registry Safes but need no per-change FIP (the one ex
 >
 > 1. Trigger and diligence (application, dispute outcome, audit finding, rotation request, or list update).
 > 2. Both Registry Safes approve the relevant call. The first Safe's transaction only records its approval (`UnanimousGovernance`); the action body runs in the second Safe's transaction, so the second Safe MUST dry-run the calldata before approving. It signs only if a dry-run simulation of **its own** approval succeeds, and notes the simulation result on the task-register issue. On a simulated revert (wrong wallet, closed window, pending shares), either Safe `veto`s and the action is resubmitted.
-> 3. The change binds when the second SRA Safe approves (no pending queue, no cancellation path). Record it in the [Program Change Log](06-changelog.md) per [§6.1](06-changelog.md#61-how-changes-are-classified).> 4. Both Registry Safes can see the submitted task. The `Submitted` event carries the `taskId`, not the full content; the issue carries the content.
-> 5. Record the outcome in the issue/repository, and update the [Orchestrator Registry](07-orchestrator-registry.md#71-admitted-orchestrators) where the change affects an Orchestrator's status.
+> 3. The change binds when the second SRA Safe approves (no pending queue, no cancellation path). Record it in the [Program Change Log](07-changelog.md) per [§7.1](07-changelog.md#71-how-changes-are-classified).> 4. Both Registry Safes can see the submitted task. The `Submitted` event carries the `taskId`, not the full content; the issue carries the content.
+> 5. Record the outcome in the issue/repository, and update the [Orchestrator Registry](05-orchestrator-registry.md#51-admitted-orchestrators) where the change affects an Orchestrator's status.
 
 The recomputation is deterministic: any observer running the reference indexer over the same settlement events and registry state reaches the same figure.
 
 ### Admission (Phase 1: discretionary)
 
-An Orchestrator's application is filed as an issue in this repository. If application is approved, SRA Governance executes the admit on-chain (action 2.3.1). **Every admitted Orchestrator is recorded in the [Orchestrator Registry](07-orchestrator-registry.md#71-admitted-orchestrators).** The Orchestrator seated at activation is not admitted through an Admit action; see [§7.4](07-orchestrator-registry.md#74-the-orchestrator-seated-at-activation).
+An Orchestrator's application is filed as an issue in this repository. If application is approved, SRA Governance executes the admit on-chain (action 2.3.1). **Every admitted Orchestrator is recorded in the [Orchestrator Registry](05-orchestrator-registry.md#51-admitted-orchestrators).** The Orchestrator seated at activation is not admitted through an Admit action; see [§5.4](05-orchestrator-registry.md#54-the-orchestrator-seated-at-activation).
 
 Phase 1 admission is discretionary (FIP-0118 §4.3). 
 A uniqueness rule is fixed by the FIP:
@@ -243,7 +243,7 @@ For Phase 2 (subject to a future FIP): admission becomes permissionless, enabled
 2. Resolve the payout wallet to an actor ID. It must exist, and it must not be a payment channel. f02 rejects payment-channel recipients on `SetShares` and `ReplaceAddress` (FIP-0118 §2.4.4). Record the actor code on the issue. A payment-channel wallet can still break `SubmitShares` for every Orchestrator; see §2.3.3.
 3. Both Registry Safes approve `AddOrchestrator(orch, wallet)` using the task-register issue’s canonical calldata; the uniqueness rule reverts any pair already bound elsewhere.
 4. Either Safe may `veto(taskId)` while the task is half-approved. Once both have approved, the admission is not cancellable.
-5. Binds and applies at once: the Orchestrator may register pairs and post from the admission epoch (FIP-0118 §3.2). Record it in the issue **and add the Orchestrator to the [Orchestrator Registry](07-orchestrator-registry.md#71-admitted-orchestrators)**.
+5. Binds and applies at once: the Orchestrator may register pairs and post from the admission epoch (FIP-0118 §3.2). Record it in the issue **and add the Orchestrator to the [Orchestrator Registry](05-orchestrator-registry.md#51-admitted-orchestrators)**.
 
 </details>
 
@@ -479,7 +479,7 @@ Applies to either tier; the mechanics are the same on the SRA and the SWA.
 
 1. Veto every open task on that contract first. `removeOwner` does not clear pending approvals; a freed owner bit can recycle to a future owner still carrying old approvals (`Owners.sol`). Every unanimous action shares one pending-task mapping, so this covers code upgrades, registry or gate-parameter changes and owner replacements alike; the task register above lists them. The issue records a sign-off that every open task was vetoed before the first `ReplaceOwner` approval. 
 2. Both Safes approve the replacement (`ReplaceOwner`), with the action's chain id, calldata, and `taskId` recorded in the issue before the first approval (see task register above). It binds at once when the second Safe approves.
-3. Record the new Safe in [2.4.1 Safe Addresses](#241-safe-addresses) and the [Program Change Log](06-changelog.md), with the reason for the replacement; a compromise also gets a post-mortem.
+3. Record the new Safe in [2.4.1 Safe Addresses](#241-safe-addresses) and the [Program Change Log](07-changelog.md), with the reason, with the reason for the replacement; a compromise also gets a post-mortem.
 4. Do the engineering items in the [owner change FAQ](https://github.com/filecoin-project/solstice/blob/main/docs/UPGRADE.md#how-do-i-handle-an-owner-change). The issue pins that runbook by commit.
 
 **Hostile or deadlocked case**, always under a published FIP. The path depends on which tier has failed (FIP-0118 §4.3). The two tiers have different remedies; a network upgrade is the path for only one of them.
