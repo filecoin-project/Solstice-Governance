@@ -1,4 +1,4 @@
-# 7. Orchestrator Registry
+# 5. Orchestrator Registry
 
 > Part of the [Solstice Governance Repository](../README.md). This page is the canonical, human-readable list of Orchestrators admitted to the Solstice program.
 
@@ -6,14 +6,15 @@ This list is maintained by SRA Governance and mirrors on-chain SRA registry stat
 
 **Contents**
 
-- [7.1 Admitted Orchestrators](#71-admitted-orchestrators)
-- [7.2 Status legend](#72-status-legend)
-- [7.3 Per-Orchestrator entry template](#73-per-orchestrator-entry-template)
-- [7.4 The Orchestrator seated at activation](#74-the-orchestrator-seated-at-activation)
+- [5.1 Admitted Orchestrators](#51-admitted-orchestrators)
+- [5.2 Status legend](#52-status-legend)
+- [5.3 Per-Orchestrator entry template](#53-per-orchestrator-entry-template)
+- [5.4 The Orchestrator seated at activation](#54-the-orchestrator-seated-at-activation)
+
 
 ---
 
-## 7.1 Admitted Orchestrators
+## 5.1 Admitted Orchestrators
 
 > **Program status:** the activation seat is recorded below; further Orchestrators appear when SRA Governance executes an Admit action ([§2.3.1](02-solstice-program-governance.md#23-sra-governance-tier--tasks-and-actions)). 
 
@@ -23,18 +24,18 @@ This list is maintained by SRA Governance and mirrors on-chain SRA registry stat
 
 Removing the sole admitted Orchestrator burns the whole service stream from the epoch the removal binds until a later `SubmitShares` with eligible volume (FIP-0118, Security Considerations). That is the launch configuration.
 
-## 7.2 Status legend
+## 5.2 Status legend
 
 | Status | Meaning |
 | :-- | :-- |
 | **Active** | Admitted and operating; can `RegisterPairs`/`PostVolume`; FPV counts toward `SplitRule` and `AggregatedFPV`. |
 | **Removed** | Permanently removed; (payer, operator) bindings released for re-registration ([§2.3.2](02-solstice-program-governance.md#23-sra-governance-tier--tasks-and-actions)). |
 
-## 7.3 Per-Orchestrator entry template
+## 5.3 Per-Orchestrator entry template
 
 This block is the definitive list of declaration fields. [§3.1 Policy 6](03-orchestrator-operational-guidelines.md#31-policies) and [§3.2.4](03-orchestrator-operational-guidelines.md#32-orchestrators-tasks-and-actions) describe the duty; this is the field list.
 
-When admitting an Orchestrator, add a row to the table in [§7.1](#71-admitted-orchestrators) and a detailed entry using this template:
+When admitting an Orchestrator, add a row to the table in [§5.1](#51-admitted-orchestrators) and a detailed entry using this template:
 
 ​```markdown
 ### <Orchestrator name>
@@ -53,12 +54,12 @@ When admitting an Orchestrator, add a row to the table in [§7.1](#71-admitted-o
 
 > Field definitions follow the Orchestrator guidelines: identity and payout wallet in [§3.2](03-orchestrator-operational-guidelines.md#32-orchestrators-tasks-and-actions), the declaration file in [§3.1, Policy 6](03-orchestrator-operational-guidelines.md#31-policies), and the (payer, operator) binding rules in [§3.1, Policy 3](03-orchestrator-operational-guidelines.md#31-policies) (FIP-fixed uniqueness).
 
-## 7.4 The Orchestrator seated at activation
+## 5.4 The Orchestrator seated at activation
 
-FIP-0118 seats an Orchestrator at activation and requires it to "publish a disclosure on activation, following the requirements in the governance repository set for any other Orchestrator." That disclosure is on activation, not within 7 days of an `AddOrchestrator` admission ([§3.1, Policy 6](03-orchestrator-operational-guidelines.md#31-policies)). That Orchestrator is not admitted through an Admit action. On activation it publishes the same declaration file required of any other Orchestrator, and SRA Governance sets its row in [§7.1](#71-admitted-orchestrators) to **Active** with admission = quarter 1 (identity and payout wallet `0x97A90f5696be5E3C8d3752C92Adac287c2b4484e`, matching `initialOrchestrator` / `initialOrchestratorWallet` in [`deployments.json`](https://github.com/filecoin-project/solstice/blob/main/deployments.json)).
+FIP-0118 seats an Orchestrator at activation and requires it to "publish a disclosure on activation, following the requirements in the governance repository set for any other Orchestrator." That disclosure is on activation, not within 7 days of an `AddOrchestrator` admission ([§3.1, Policy 6](03-orchestrator-operational-guidelines.md#31-policies)). That Orchestrator is not admitted through an Admit action. On activation it publishes the same declaration file required of any other Orchestrator, and SRA Governance sets its row in [§5.1](#51-admitted-orchestrators) to **Active** with admission = quarter 1 (identity and payout wallet `0x97A90f5696be5E3C8d3752C92Adac287c2b4484e`, matching `initialOrchestrator` / `initialOrchestratorWallet` in [`deployments.json`](https://github.com/filecoin-project/solstice/blob/main/deployments.json)).
 
-The row in §7.1 is chain id **314** (Filecoin mainnet). As of solstice `deployments.json` commit `b9a63a87b5adee272c16d7e507cc9c127fb34f0f`, the same address is `initialOrchestrator` and `initialOrchestratorWallet` on calibnet (chain id 314159). A mainnet action names chain id 314. The same address string is not a check that the signer is on mainnet.
+The row in §5.1 is chain id **314** (Filecoin mainnet). As of solstice `deployments.json` commit `b9a63a87b5adee272c16d7e507cc9c127fb34f0f`, the same address is `initialOrchestrator` and `initialOrchestratorWallet` on calibnet (chain id 314159). A mainnet action names chain id 314. The same address string is not a check that the signer is on mainnet.
 
 ---
 
-← Previous: [6. Program Change Log](06-changelog.md) · [Back to README](../README.md)
+← Previous: [4. Quarterly Review and Runbook](04-quarterly-review-and-runbook.md) · [Back to README](../README.md) · Next: [6. Quarterly Reports](06-quarterly-reports.md) →
