@@ -43,13 +43,13 @@ Each entry should link: (a) the **community issue / discussion** that raised the
 
 ### 2026-10-26 — Section renumbering
 
-- Type: Repository (PR)
-- Summary: Three pages renumbered so the registry sits next to the operational sections: Orchestrator Registry 7 → 5, Quarterly Reports 5 → 6, Program Change Log 6 → 7. Files renamed to match, internal headings and anchors updated, and every inbound link repointed across the README and sections 2, 3 and 4. No procedure, parameter, registry entry or FIP quotation changed.
-- Community issue / discussion: Review feedback, 26 October 2026.
-- FIP: n/a. No FIP text is amended.
-- PR / commit: <fill in>
-- Affected sections: README §1.2 and §1.3, §2 (intro, §2.3, §2.5.3), §3 (intro, §3.2, §3.2.2, §3.2.4, §3.3), §4 (intro, §4.1, §4.2, §4.4.5), and sections 5, 6, 7
-- Status: Accepted
+- **Type**: Repository (PR)
+- **Summary**: Three pages renumbered so the registry sits next to the operational sections: Orchestrator Registry 7 → 5, Quarterly Reports 5 → 6, Program Change Log 6 → 7. Files renamed to match, internal headings and anchors updated, and every inbound link repointed across the README and sections 2, 3 and 4. No procedure, parameter, registry entry or FIP quotation changed.
+- **Community issue / discussion**: Review feedback, 26 October 2026.
+- **FIP**: n/a. No FIP text is amended.
+- **PR / commit**: <fill in>
+- **Affected sections**: README §1.2 and §1.3, §2 (intro, §2.3, §2.5.3), §3 (intro, §3.2, §3.2.2, §3.2.4, §3.3), §4 (intro, §4.1, §4.2, §4.4.5), and sections 5, 6, 7
+- **Status**: Accepted
 
 ### 2026-10-21 — Reference FPV indexer published
 
