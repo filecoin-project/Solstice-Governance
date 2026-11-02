@@ -17,6 +17,8 @@ This list is maintained by SRA Governance and mirrors on-chain SRA registry stat
 ## 5.1 Admitted Orchestrators
 
 > **Program status:** the activation seat is recorded below; further Orchestrators appear when SRA Governance executes an Admit action ([§2.3.1](02-solstice-program-governance.md#23-sra-governance-tier--tasks-and-actions)). 
+>
+> **Interested in becoming an Orchestrator?** Join the [Solstice Service Orchestrator Waitlist](https://airtable.com/app5Z06YtJgzdlDwd/pagOCu6qWnketi87W/form). The waitlist only records interest. It is not an application: an Orchestrator applies by filing an issue in this repository, and is admitted only through an Admit action ([§2.3.1](02-solstice-program-governance.md#23-sra-governance-tier--tasks-and-actions)).
 
 | # | Orchestrator | Identity (`orch`) | Payout wallet | Status | Admitted (quarter / epoch) | Declaration | Registered (payer, operator) pairs |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
