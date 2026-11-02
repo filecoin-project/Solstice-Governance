@@ -26,9 +26,20 @@ Each entry should link: (a) the **community issue / discussion** that raised the
 
 | Date | Change | Type | Community issue / discussion | FIP | PR / commit | Status |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
+| 2026-11-02 | Link to the Solstice Service Orchestrator Waitlist added to §5.1. The waitlist only records interest; the application and admission process is unchanged. | Repository (PR) | n/a | n/a | <fill in> | Accepted |
 | 2026-10-14 | Procedures and FIP quotations aligned with FIP-0118 at `23b4296` (back-cover, `CorrectVolume` publication, `ReassignBinding` / `CancelBinding`, quarterly recomputation, chain id). See the dated subsection. | Repository (PR) | No GitHub issue. Review dated 2026-10-14. | n/a. Quotations are from [FIP-0118 @ `23b4296`](https://github.com/filecoin-project/FIPs/blob/23b42964890590a49c9cbc6e19a7e9e361d1f8a0/FIPS/fip-0118.md). | `review-fixes-fip0118` | Accepted |
 | 2026-10-09 | Upgrade-runbook link; one Safe-replacement section (§2.5.3) for both tiers. | Repository (PR) | n/a | n/a | [#17](https://github.com/filecoin-project/Solstice-Governance/pull/17) `142926f3ff38ed10166725a95a1a73500c35af3a` | Accepted |
 | 2026 (pending) | Establishment of the Solstice program and this governance repository; deprecation of Filecoin Plus. | FIP + Network upgrade | [FIP-0118 discussion](https://github.com/filecoin-project/FIPs/discussions/1249) | [FIP-0118](https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0118.md) | Initial repository | Draft |
+
+### 2026-11-02 — Orchestrator waitlist link
+
+- **Type:** Repository (PR)
+- **Summary:** §5.1 now links to the Solstice Service Orchestrator Waitlist, so prospective Orchestrators can register interest. The note says the waitlist is not an application. Applications are still filed as an issue in this repository and admission is still by Admit action (§2.3.1). No registry entry, status, procedure or parameter changed.
+- **Community issue / discussion:** n/a
+- **FIP:** n/a. No FIP text is amended.
+- **PR / commit:** <fill in>
+- **Affected sections:** §5.1
+- **Status:** Accepted
 
 ### 2026-10-26 — Section renumbering
 
