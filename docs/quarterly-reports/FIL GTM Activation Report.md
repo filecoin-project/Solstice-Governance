@@ -23,8 +23,8 @@ The following registered pair attributes onchain revenue to the corresponding cu
 
 | Role | Entity | Wallet Address |
 | :--- | :--- | :--- |
-| Payer | Fil One Payer Account | `0x5B27DbC6efeFbb5Ba8106fB19433048D60D6878F` |
-| Operator | Aurora Infrastructure EU (Storage Provider) | `0xefA4ddBCe66B86B821A5A4238552b6F94C61d3fe` |
+| Payer | Fil One Payer Account | 0x5B27DbC6efeFbb5Ba8106fB19433048D60D6878F |
+| Operator | Aurora Infrastructure EU (Storage Provider) | 0x9D4f07b948E87941a4Bf4Ab335d7A7d854843d75 |
 
 ---
 
