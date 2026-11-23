@@ -40,7 +40,7 @@ Changes happen by pull request with public review. What counts as a change, how 
 - FIP text: [FIP-0118](https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0118.md)
 - Contract upgrade runbook: [solstice `docs/UPGRADE.md`](https://github.com/filecoin-project/solstice/blob/main/docs/UPGRADE.md). An upgrade issue pins this file by commit. The pending upgrade and its execution must be observable on chain (FIP-0118 §4.2).
 - FPV indexer: [fidlabs/fpv-indexer](https://github.com/fidlabs/fpv-indexer); see its [public instances](https://github.com/fidlabs/fpv-indexer#public-instances) section for calibnet/mainnet URLs
-- [Solstice Watchtower](https://solsticewatchtower.eth.limo/)
+- [Solstice Watchtower](https://watchtower.fidl.tech/)
 - [Licence](LICENSE) and [Disclaimer](DISCLAIMER.md)
 
 
