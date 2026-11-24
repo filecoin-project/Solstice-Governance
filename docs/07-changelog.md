@@ -26,10 +26,21 @@ Each entry should link: (a) the **community issue / discussion** that raised the
 
 | Date | Change | Type | Community issue / discussion | FIP | PR / commit | Status |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
+| 2026-11-24 | Temporary note in §2.3.4: until the fee-auction (`burnForFees`) pricing fix ships, SRA Governance may use `CorrectVolume` to correct FPV whose FIL volume is priced by a print that does not reflect market price. | Repository (PR) | <fill in> | n/a | <fill in> | n/a |
 | 2026-11-02 | Link to the Solstice Service Orchestrator Expression of Interest list added to §5.1. The waitlist only records interest; the application and admission process is unchanged. | Repository (PR) | n/a | n/a | <fill in> | Accepted |
 | 2026-10-14 | Procedures and FIP quotations aligned with FIP-0118 at `23b4296` (back-cover, `CorrectVolume` publication, `ReassignBinding` / `CancelBinding`, quarterly recomputation, chain id). See the dated subsection. | Repository (PR) | No GitHub issue. Review dated 2026-10-14. | n/a. Quotations are from [FIP-0118 @ `23b4296`](https://github.com/filecoin-project/FIPs/blob/23b42964890590a49c9cbc6e19a7e9e361d1f8a0/FIPS/fip-0118.md). | `review-fixes-fip0118` | Accepted |
 | 2026-10-09 | Upgrade-runbook link; one Safe-replacement section (§2.5.3) for both tiers. | Repository (PR) | n/a | n/a | [#17](https://github.com/filecoin-project/Solstice-Governance/pull/17) `142926f3ff38ed10166725a95a1a73500c35af3a` | Accepted |
 | 2026 (pending) | Establishment of the Solstice program and this governance repository; deprecation of Filecoin Plus. | FIP + Network upgrade | [FIP-0118 discussion](https://github.com/filecoin-project/FIPs/discussions/1249) | [FIP-0118](https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0118.md) | Initial repository | Draft |
+
+### 2026-11-24 — Temporary CorrectVolume note for FIL pricing
+
+- **Type:** Repository (PR)
+- **Summary:** The first mainnet fee-auction prints (`burnForFees`, claims of Nov 12 and Nov 19) imply a non-accurate FIL price. A fix to the FIL pricing is in progress. Until the fixed is implemented, §2.3.4 notes that SRA Governance may use `CorrectVolume` to correct FPV whose FIL-denominated volume is priced wrongfully, for example by excluding that FIL volume. No appeals are recorded, parameter or FIP remain as is, and stablecoin volume is unaffected. The note is temporary and will be removed by a follow-up entry once the fix is live.
+- **Community issue / discussion:** <fill in>
+- **FIP:** n/a. No FIP text is amended.
+- **PR / commit:** <fill in>
+- **Affected sections:** §2.3.4
+- **Status:** Accepted
 
 ### 2026-11-02 — Orchestrator Expression of Interest link
 
