@@ -295,6 +295,13 @@ A later return, where one is allowed, is a fresh `AddOrchestrator` with a fresh 
 6. Values bind when the window closes. There is no separate cancellation of a completed correction.
 7. A contested correction is appealed via the [dispute process](04-quarterly-review-and-runbook.md#442-dispute-resolution-for-contested-bindings). The outcome affects only later quarters.
 
+> **Temporary note (from 2026-11-24): FIL pricing from fee-auction prints.**
+> The first mainnet fee-auction prints (burnForFees) do not currently reflect FIL’s market price. A fix is currently being implemented.
+> 
+> Until the fee-auction price aligns with market-price, SRA Governance may use CorrectVolume (steps 2–3 above) to correct a posted or missing FPV whose FIL-denominated volume is wrongfully priced by an affected print, for example by excluding that FIL volume.
+> 
+> In the event of such correction, an explanatory issue will be created, along with a change log entry displaying the FIL settlements (on-chain) and a decription of how the corrected figure were computed. Stablecoin volume is unaffected, and this note will be removed once the fix is live.
+
 FIP-0118 fixes the binding behavior:
 
 > "Binding: whatever each value is when the window closes binds, and bound values are final for the quarter."
